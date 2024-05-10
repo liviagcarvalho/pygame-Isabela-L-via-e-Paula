@@ -4,138 +4,121 @@ import random
 pygame.init()
 
 # ----- Gera tela principal
-WIDTH = 500
-HEIGHT = 700
+WIDTH = 600
+HEIGHT = 800
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('🧚🏼🧚🏼‍♀️Fairy Game🧚🏼‍♀️🧚🏼')
 
-game = True
 
 imagem_fundo = pygame.image.load('assets/img/Fundo_pygame.png').convert()
 imagem_fundo = pygame.transform.scale(imagem_fundo, (WIDTH, HEIGHT))
 
-LASER_WIDTH = 50
-LASER_HEIGHT = 38
+LASER_WIDTH = 100
+LASER_HEIGHT = 50
 font = pygame.font.SysFont(None, 48)
-LASER_img = pygame.image.load('assets/img/Laser_roxo.png').convert_alpha() 
-LASER_img_small = pygame.transform.scale(LASER_img, (LASER_WIDTH, LASER_HEIGHT))
 
-LASER_x = 200
-# y negativo significa que está acima do topo da janela. O meteoro começa fora da janela
-LASER_y = -LASER_HEIGHT
-LASER_speedx = 3
-LASER_speedy = 4
+# Carregando imagens dos lasers
+LASER_img_roxo = pygame.image.load('assets/img/Laser_roxo.png').convert_alpha()
+LASER_img_azul = pygame.image.load('assets/img/Laser_azul.png').convert_alpha()
+LASER_img_rosa = pygame.image.load('assets/img/Laser_rosa.png').convert_alpha()
+LASER_img_verde = pygame.image.load('assets/img/Laser_verde.png').convert_alpha()
+LASER_img_verdeagua = pygame.image.load('assets/img/Laser_verdeagua.png').convert_alpha()
+LASER_img_amarelo = pygame.image.load('assets/img/Laser_amarelo.png').convert_alpha()
+
+# Redimensionando imagens dos lasers
+LASER_img_roxo_small = pygame.transform.scale(LASER_img_roxo, (LASER_WIDTH, LASER_HEIGHT))
+LASER_img_azul_small = pygame.transform.scale(LASER_img_azul, (LASER_WIDTH, LASER_HEIGHT))
+LASER_img_rosa_small = pygame.transform.scale(LASER_img_rosa, (LASER_WIDTH, LASER_HEIGHT))
+LASER_img_verde_small = pygame.transform.scale(LASER_img_verde, (LASER_WIDTH, LASER_HEIGHT))
+LASER_img_verdeagua_small = pygame.transform.scale(LASER_img_verdeagua, (LASER_WIDTH, LASER_HEIGHT))
+LASER_img_amarelo_small = pygame.transform.scale(LASER_img_amarelo, (LASER_WIDTH, LASER_HEIGHT))
+
+#FADA IMAGEM 
+
+# fada_img = 
+
+
+
+
+game = True 
+
+clock = pygame.time.Clock()
+FPS = 30
+
+# CLASSE LASER 
+class LASER(pygame.sprite.Sprite):
+    def __init__(self, img):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randint(0, WIDTH - LASER_WIDTH)
+        self.rect.y = random.randint(-100, -LASER_HEIGHT)
+        self.speedx = random.randint(-3, 3)
+        self.speedy = random.randint(2, 9) # velocidade (4,12) - para ultima fase (3,10) segunda fase 
+
+    def update(self):
+        self.rect.x += self.speedx
+        self.rect.y += self.speedy
+        if self.rect.top > HEIGHT or self.rect.right < 0 or self.rect.left > WIDTH:
+            self.rect.x = random.randint(0, WIDTH - LASER_WIDTH)
+            self.rect.y = random.randint(-100, -LASER_HEIGHT)
+            self.speedx = random.randint(-3, 3)
+            self.speedy = random.randint(2, 9) # velocidade (4,12) - para ultima fase (3,10) segunda fase 
+
+
+
+
+
+
+# Criando um grupo de sprites para os lasers
+all_sprites = pygame.sprite.Group()
+
+# Criando os lasers e adicionando ao grupo de sprites
+l1 = LASER(LASER_img_roxo_small)
+l2 = LASER(LASER_img_azul_small)
+l3 = LASER(LASER_img_rosa_small)
+l4 = LASER(LASER_img_verde_small)
+l5 = LASER(LASER_img_verdeagua_small)
+l6 = LASER(LASER_img_amarelo_small)
+all_sprites.add(l1, l2, l3, l4, l5, l6)
+
+
+
+
+
+#AUMENTA QUANTIDADE DE LASER PARA FASES FUTURAS!!!!!!!!!
+# # Criando mais lasers e adicionando ao grupo de sprites
+# num_lasers = 12  # Aumentando a quantidade de lasers
+# for _ in range(num_lasers):
+#     l = LASER(random.choice([LASER_img_roxo_small, LASER_img_azul_small, LASER_img_rosa_small, LASER_img_verde_small, LASER_img_amarelo_small, LASER_img_verdeagua_small]))
+#     all_sprites.add(l)
+
+
+
+
+
 
 
 # ===== Loop principal =====
-
 while game:
-    # ----- Trata eventos
+    clock.tick(FPS)
+
+    # Trata eventos
     for event in pygame.event.get():
-        # ----- Verifica consequências
         if event.type == pygame.QUIT:
             game = False
 
-    # ----- Gera saídas
-    window.fill((0, 0, 0))  # Preenche com a cor branca
+    # Atualiza estado do jogo
+    all_sprites.update()
+
+    # Gera saídas
+    window.fill((0, 0, 0))  
     window.blit(imagem_fundo, (0, 0))
+    all_sprites.draw(window)
 
-    LASER_x += LASER_speedx
-    LASER_y += LASER_speedy
-    # Se o meteoro passar do final da tela, volta para cima
-    if LASER_y > HEIGHT or LASER_x + LASER_WIDTH < 0 or LASER_x > WIDTH:
-        # meteor_x = 200
-        # meteor_y = -METEOR_HEIGHT
-        LASER_x = random.randint(0, WIDTH-LASER_WIDTH) 
-        LASER_y = random.randint(-100, -LASER_HEIGHT) 
-        LASER_speedx = random.randint(-3, 3) 
-        LASER_speedy = random.randint(2, 9)
+    pygame.display.update()
 
-    # ----- Gera saídas
-    window.fill((0, 0, 0))  # Preenche com a cor branca
-    window.blit(imagem_fundo, (0, 0)) # desenha imagem de fundo 
-    window.blit(LASER_img_small, (LASER_x, LASER_y)) # desenha imagem do meteoro n
-    pygame.display.update()  # Mostra o novo frame para o jogador
+# Finalização
+pygame.quit()
 
-# ===== Finalização =====
-pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
-
-
-
-
-
-
-
-
-
-
-
-
-
-# # ----- Inicia estruturas de dados
-# # Definindo os novos tipos
-# class Meteor(pygame.sprite.Sprite):
-#     def __init__(self, img):
-#         # Construtor da classe mãe (Sprite). # Todo Sprite deve definir um atributo image e um rect, eles são utilizados para desenhar a imagem.
-#         pygame.sprite.Sprite.__init__(self)
-#         # O rect define a posição do retângulo da imagem
-#         self.image = img
-#         self.rect = self.image.get_rect()
-#         self.rect.x = random.randint(0, WIDTH-LASER_WIDTH)
-#         self.rect.y = random.randint(-100, -LASER_HEIGHT)
-#         self.speedx = random.randint(-3, 3)
-#         self.speedy = random.randint(2, 9)
-
-#     def update(self):
-#         # Atualizando a posição do meteoro
-#         self.rect.x += self.speedx
-#         self.rect.y += self.speedy
-#         # Se o meteoro passar do final da tela, volta para cima e sorteia
-#         # novas posições e velocidades
-#         if self.rect.top > HEIGHT or self.rect.right < 0 or self.rect.left > WIDTH:
-#             self.rect.x = random.randint(0, WIDTH-LASER_WIDTH)
-#             self.rect.y = random.randint(-100, -LASER_HEIGHT)
-#             self.speedx = random.randint(-3, 3)
-#             self.speedy = random.randint(2, 9)
-
-# game = True
-# # Variável para o ajuste de velocidade
-# clock = pygame.time.Clock()
-# FPS = 30
-
-# # Criando dois meteoros
-# meteor1 = Meteor(LASER_img)
-# meteor2 = Meteor(LASER_img)
-# meteor3 = Meteor(LASER_img)
-# meteor4 = Meteor(LASER_img)
-
-# # ===== Loop principal =====
-# while game:
-#     clock.tick(FPS)
-
-#     # ----- Trata eventos
-#     for event in pygame.event.get():
-#         # ----- Verifica consequências
-#         if event.type == pygame.QUIT:
-#             game = False
-
-#     # ----- Atualiza estado do jogo
-#     # Atualizando a posição dos meteoros
-#     meteor1.update()
-#     meteor2.update()
-#     meteor3.update()
-#     meteor4.update()
-#     # ----- Gera saídas
-#     window.fill((0, 0, 0))  # Preenche com a cor branca
-#     window.blit(imagem_fundo, (0, 0))
-#     # Desenhando meteoros
-#     window.blit(meteor1.image, meteor1.rect)
-#     window.blit(meteor2.image, meteor2.rect)
-#     window.blit(meteor3.image, meteor3.rect)
-#     window.blit(meteor4.image, meteor4.rect)
-
-#     pygame.display.update()  # Mostra o novo frame para o jogador
-
-# # ===== Finalização =====
-# pygame.quit()  # Função do PyGame que finaliza os recursos utilizados
 
