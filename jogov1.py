@@ -10,12 +10,26 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('🧚🏼🧚🏼‍♀️Fairy Game🧚🏼‍♀️🧚🏼')
 
 
+
+# ----- Carrega imagens
+
+# Carregando a imagem da fada mal
+imagem_fada_mal = pygame.image.load('assets/img/FADAmal.png').convert_alpha()
+fada_mal_width = 120
+fada_mal_height = 80
+imagem_fada_mal = pygame.transform.scale(imagem_fada_mal, (fada_mal_width, fada_mal_height))
+fada_mal_rect = imagem_fada_mal.get_rect()
+fada_mal_rect.centerx = WIDTH // 2  # Centraliza a fada mal horizontalmente
+fada_mal_rect.top = 0  # Posiciona a fada mal no topo da janela
+
+
+
+# Carregando a imagem de fundo
 imagem_fundo = pygame.image.load('assets/img/Fundo_pygame.png').convert()
 imagem_fundo = pygame.transform.scale(imagem_fundo, (WIDTH, HEIGHT))
 
-LASER_WIDTH = 100
-LASER_HEIGHT = 50
-font = pygame.font.SysFont(None, 48)
+
+
 
 # Carregando imagens dos lasers
 LASER_img_roxo = pygame.image.load('assets/img/Laser_roxo.png').convert_alpha()
@@ -26,6 +40,8 @@ LASER_img_verdeagua = pygame.image.load('assets/img/Laser_verdeagua.png').conver
 LASER_img_amarelo = pygame.image.load('assets/img/Laser_amarelo.png').convert_alpha()
 
 # Redimensionando imagens dos lasers
+LASER_WIDTH = 100
+LASER_HEIGHT = 50
 LASER_img_roxo_small = pygame.transform.scale(LASER_img_roxo, (LASER_WIDTH, LASER_HEIGHT))
 LASER_img_azul_small = pygame.transform.scale(LASER_img_azul, (LASER_WIDTH, LASER_HEIGHT))
 LASER_img_rosa_small = pygame.transform.scale(LASER_img_rosa, (LASER_WIDTH, LASER_HEIGHT))
@@ -33,19 +49,16 @@ LASER_img_verde_small = pygame.transform.scale(LASER_img_verde, (LASER_WIDTH, LA
 LASER_img_verdeagua_small = pygame.transform.scale(LASER_img_verdeagua, (LASER_WIDTH, LASER_HEIGHT))
 LASER_img_amarelo_small = pygame.transform.scale(LASER_img_amarelo, (LASER_WIDTH, LASER_HEIGHT))
 
-#FADA IMAGEM 
 
-# fada_img = 
-
-
-
-
+# ----- Definindo outras variáveis do jogo
 game = True 
-
 clock = pygame.time.Clock()
 FPS = 30
 
-# CLASSE LASER 
+
+
+
+# ----- CLASSE LASER 
 class LASER(pygame.sprite.Sprite):
     def __init__(self, img):
         pygame.sprite.Sprite.__init__(self)
@@ -67,13 +80,12 @@ class LASER(pygame.sprite.Sprite):
 
 
 
-
-
-
-# Criando um grupo de sprites para os lasers
+# ----- Criando um grupo de sprites para os lasers
 all_sprites = pygame.sprite.Group()
 
-# Criando os lasers e adicionando ao grupo de sprites
+
+
+# ----- Criando os lasers e adicionando ao grupo de sprites
 l1 = LASER(LASER_img_roxo_small)
 l2 = LASER(LASER_img_azul_small)
 l3 = LASER(LASER_img_rosa_small)
@@ -86,7 +98,7 @@ all_sprites.add(l1, l2, l3, l4, l5, l6)
 
 
 
-#AUMENTA QUANTIDADE DE LASER PARA FASES FUTURAS!!!!!!!!!
+# #AUMENTA QUANTIDADE DE LASER PARA FASES FUTURAS!!!!!!!!!
 # # Criando mais lasers e adicionando ao grupo de sprites
 # num_lasers = 12  # Aumentando a quantidade de lasers
 # for _ in range(num_lasers):
@@ -99,7 +111,8 @@ all_sprites.add(l1, l2, l3, l4, l5, l6)
 
 
 
-# ===== Loop principal =====
+
+# ----- Loop principal
 while game:
     clock.tick(FPS)
 
@@ -112,13 +125,17 @@ while game:
     all_sprites.update()
 
     # Gera saídas
-    window.fill((0, 0, 0))  
-    window.blit(imagem_fundo, (0, 0))
+    window.blit(imagem_fundo, (0, 0))  # Desenha o fundo
+    window.blit(imagem_fada_mal, fada_mal_rect)  # Desenha a fada mal
     all_sprites.draw(window)
 
-    pygame.display.update()
+    pygame.display.flip()
 
 # Finalização
 pygame.quit()
+
+
+
+
 
 
