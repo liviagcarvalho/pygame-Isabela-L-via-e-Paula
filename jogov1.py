@@ -13,7 +13,7 @@ pygame.display.set_caption('🧚🏼🧚🏼‍♀️Fairy Game🧚🏼‍♀️
 
 # ----- Carrega imagens
 
-# Carregando a imagem da fada mal
+#imagem da fada mal
 imagem_fada_mal = pygame.image.load('assets/img/FADAmal.png').convert_alpha()
 fada_mal_width = 120
 fada_mal_height = 80
@@ -28,7 +28,11 @@ fada_mal_rect.top = 0  # Posiciona a fada mal no topo da janela
 imagem_fundo = pygame.image.load('assets/img/Fundo_pygame.png').convert()
 imagem_fundo = pygame.transform.scale(imagem_fundo, (WIDTH, HEIGHT))
 
-
+#imagem fada bem 
+fada_bem_width = 120
+fada_bem_height = 80
+imagem_fada_bem = pygame.image.load('assets/img/FADAbem.png').convert_alpha()
+imagem_fada_bem = pygame.transform.scale(imagem_fada_bem, (fada_bem_width, fada_bem_height))
 
 
 # Carregando imagens dos lasers
@@ -54,6 +58,32 @@ LASER_img_amarelo_small = pygame.transform.scale(LASER_img_amarelo, (LASER_WIDTH
 game = True 
 clock = pygame.time.Clock()
 FPS = 30
+
+
+
+
+# ----- CLASSE FADA BEM 
+class FADA_BEM(pygame.sprite.Sprite):
+    def __init__(self, img):
+        # Construtor da classe mãe (Sprite).
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.centerx = WIDTH / 2
+        self.rect.bottom = HEIGHT - 10
+        self.speedx = 0
+
+    def update(self):
+        # Atualização da posição da fada
+        self.rect.x += self.speedx
+
+        # Mantem dentro da tela
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
+        if self.rect.left < 0:
+            self.rect.left = 0
+
 
 
 
@@ -95,7 +125,9 @@ l6 = LASER(LASER_img_amarelo_small)
 all_sprites.add(l1, l2, l3, l4, l5, l6)
 
 
-
+# Criando o jogador
+jogador = FADA_BEM(imagem_fada_bem)
+all_sprites.add(jogador)
 
 
 # #AUMENTA QUANTIDADE DE LASER PARA FASES FUTURAS!!!!!!!!!
@@ -112,16 +144,60 @@ all_sprites.add(l1, l2, l3, l4, l5, l6)
 
 
 
-# ----- Loop principal
+
+
+
+
+
+# # ----- Loop principal
+# while game:
+#     clock.tick(FPS)
+
+#     # Trata eventos
+#     for event in pygame.event.get():
+#         if event.type == pygame.QUIT:
+#             game = False
+
+#     # Atualiza estado do jogo
+#     all_sprites.update()
+
+#     # Gera saídas
+#     window.blit(imagem_fundo, (0, 0))  # Desenha o fundo
+#     window.blit(imagem_fada_mal, fada_mal_rect)  # Desenha a fada mal
+#     all_sprites.draw(window)
+
+#     pygame.display.flip()
+
+# # Finalização
+# pygame.quit()
+
+
+
+# ===== Loop principal =====
 while game:
     clock.tick(FPS)
 
-    # Trata eventos
+    # ----- Trata eventos
     for event in pygame.event.get():
+        # ----- Verifica consequências
         if event.type == pygame.QUIT:
             game = False
+        # Verifica se apertou alguma tecla.
+        if event.type == pygame.KEYDOWN:
+            # Dependendo da tecla, altera a velocidade.
+            if event.key == pygame.K_LEFT:
+                jogador.speedx -= 4 #8
+            if event.key == pygame.K_RIGHT:
+                jogador.speedx += 4 #8
+        # Verifica se soltou alguma tecla.
+        if event.type == pygame.KEYUP:
+            # Dependendo da tecla, altera a velocidade.
+            if event.key == pygame.K_LEFT:
+                jogador.speedx += 4 #8
+            if event.key == pygame.K_RIGHT:
+                jogador.speedx -= 4 #8
 
-    # Atualiza estado do jogo
+ # Atualiza estado do jogo
     all_sprites.update()
 
     # Gera saídas
@@ -133,7 +209,6 @@ while game:
 
 # Finalização
 pygame.quit()
-
 
 
 
