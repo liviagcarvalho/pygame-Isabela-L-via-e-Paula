@@ -242,15 +242,15 @@ while game:
     # Atualiza a posição da imagem de fundo.
     imagem_fundo_rect.x += speed_fundo
     # Se o fundo saiu da janela, faz ele voltar para dentro.
-    if imagem_fundo_rect.right < 0:
-        imagem_fundo_rect.x += imagem_fundo_rect.width
+    if imagem_fundo_rect.left > WIDTH:
+        imagem_fundo_rect.x -= imagem_fundo_rect.width
     # Desenha o fundo e uma cópia para a direita.
     # Assumimos que a imagem selecionada ocupa pelo menos o tamanho da janela.
     # Além disso, ela deve ser cíclica, ou seja, o lado esquerdo deve ser continuação do direito.
     window.blit (imagem_fundo, imagem_fundo_rect)
     # Desenhamos a imagem novamente, mas deslocada da largura da imagem em x.
     imagem_fundo_rect_2 = imagem_fundo_rect.copy()
-    imagem_fundo_rect_2.x += imagem_fundo_rect_2.width
+    imagem_fundo_rect_2.x -= imagem_fundo_rect_2.width
     window.blit (imagem_fundo, imagem_fundo_rect_2)
 
 
