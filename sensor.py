@@ -129,11 +129,20 @@ FPS = 30
 
 all_sprites = pygame.sprite.Group()
 all_tiros = pygame.sprite.Group()
+all_lasers = pygame.sprite.Group()
 
 # Criando o jogador
 jogador = FADA_BEM(imagem_fada_bem, all_sprites, all_tiros, imagem_tiro)
 all_sprites.add(jogador)
 
+
+# ----- Criando os lasers e adicionando ao grupo de sprites
+lasers = [LASER(LASER_img_roxo_small), LASER(LASER_img_azul_small), LASER(LASER_img_rosa_small), 
+          LASER(LASER_img_verde_small), LASER(LASER_img_verdeagua_small), LASER(LASER_img_amarelo_small)]
+
+for laser in lasers:
+    all_sprites.add(laser)
+    all_lasers.add(laser)
 
 # ----- Criando os lasers e adicionando ao grupo de sprites
 l1 = LASER(LASER_img_roxo_small)
@@ -186,7 +195,17 @@ while game:
 
  # Atualiza estado do jogo
     all_sprites.update()
+
+# Verifica se houve colisão com lasers
+
+
+
 # Verifica se houve colisão entre fadas
+    if pygame.sprite.spritecollide(jogador, all_lasers, False):
+        game = False
+
+
+
     if jogador.rect.colliderect(fada_mal_rect):
         game = False
     
