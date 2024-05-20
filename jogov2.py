@@ -4,8 +4,8 @@ import random
 pygame.init()
 
 # ----- Gera tela principal
-WIDTH = 600
-HEIGHT = 800
+WIDTH = 900
+HEIGHT = 600
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('🧚🏼🧚🏼‍♀️Fairy Game🧚🏼‍♀️🧚🏼')
 
@@ -24,8 +24,8 @@ fada_mal_width = 120
 fada_mal_height = 80
 imagem_fada_mal = pygame.transform.scale(imagem_fada_mal, (fada_mal_width, fada_mal_height))
 fada_mal_rect = imagem_fada_mal.get_rect()
-fada_mal_rect.centerx = WIDTH // 2  # Centraliza a fada mal horizontalmente
-fada_mal_rect.top = 0  # Posiciona a fada mal no topo da janela
+fada_mal_rect.centery = HEIGHT/2  # Centraliza a fada má verticalmente
+fada_mal_rect.right = 120
 
 
 #imagem fada bem 
@@ -33,6 +33,10 @@ fada_bem_width = 120
 fada_bem_height = 80
 imagem_fada_bem = pygame.image.load('assets/img/FADAbem.png').convert_alpha()
 imagem_fada_bem = pygame.transform.scale(imagem_fada_bem, (fada_bem_width, fada_bem_height))
+### dentro do classe 
+
+
+
 
 
 #tiro brilho 
@@ -67,9 +71,10 @@ class FADA_BEM(pygame.sprite.Sprite):
 
         self.image = img
         self.rect = self.image.get_rect()
-        self.rect.centerx = WIDTH / 2
-        self.rect.bottom = HEIGHT - 10
+        self.rect.centerx = WIDTH - 50
+        self.rect.bottom = HEIGHT/2 
         self.speedx = 0
+        self.speedy = 0
         self.all_sprites = all_sprites
         self.all_tiro = all_tiros
         self.imagem_img = imagem_tiro
@@ -77,12 +82,19 @@ class FADA_BEM(pygame.sprite.Sprite):
     def update(self):
         # Atualização da posição da fada
         self.rect.x += self.speedx
+        self.rect.y += self.speedy
 
         # Mantem dentro da tela
         if self.rect.right > WIDTH:
             self.rect.right = WIDTH
         if self.rect.left < 0:
             self.rect.left = 0
+        if self.rect.bottom > HEIGHT:
+            self.rect.bottom = HEIGHT
+        if self.rect.top < 0:
+            self.rect.top = 0
+
+
 
     def shoot(self):
         # A nova bala vai ser criada logo acima e no centro horizontal da nave
@@ -193,13 +205,21 @@ while game:
                 jogador.speedx -= 4 #8
             if event.key == pygame.K_RIGHT:
                 jogador.speedx += 4 #8
+            if event.key == pygame.K_UP:
+                jogador.speedy = -5
+            if event.key == pygame.K_DOWN:
+                jogador.speedy = 5
+
         # Verifica se soltou alguma tecla.
         if event.type == pygame.KEYUP:
-            # Dependendo da tecla, altera a velocidade.
-            if event.key == pygame.K_LEFT:
-                jogador.speedx += 4 #8
-            if event.key == pygame.K_RIGHT:
-                jogador.speedx -= 4 #8
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                jogador.speedx = 0
+            if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                jogador.speedy = 0
+
+
+
+
 
  # Atualiza estado do jogo
     all_sprites.update()
