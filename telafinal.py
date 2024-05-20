@@ -42,7 +42,7 @@ LASER_img_verde_small = pygame.transform.scale(LASER_img_verde, (LASER_WIDTH, LA
 LASER_img_verdeagua_small = pygame.transform.scale(LASER_img_verdeagua, (LASER_WIDTH, LASER_HEIGHT))
 LASER_img_amarelo_small = pygame.transform.scale(LASER_img_amarelo, (LASER_WIDTH, LASER_HEIGHT))
 
-game = True 
+game = True
 clock = pygame.time.Clock()
 FPS = 30
 
@@ -78,6 +78,26 @@ l5 = LASER(LASER_img_verdeagua_small)
 l6 = LASER(LASER_img_amarelo_small)
 all_sprites.add(l1, l2, l3, l4, l5, l6)
 
+def show_end_screen(message):
+    window.fill((0, 0, 0))  # Preenche a tela com preto
+    font = pygame.font.SysFont(None, 55)
+    text = font.render(message, True, (255, 255, 255))
+    subtext = font.render('Clique em qualquer botão para reiniciar', True, (255, 255, 255))
+    text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50))
+    subtext_rect = subtext.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
+    window.blit(text, text_rect)
+    window.blit(subtext, subtext_rect)
+    pygame.display.flip()
+
+    waiting = True
+    while waiting:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+            if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
+                waiting = False
+
 # ===== Loop principal =====
 while game:
     clock.tick(FPS)
@@ -89,6 +109,17 @@ while game:
 
     # Atualiza estado do jogo
     all_sprites.update()
+
+    # Verifica condições de fim de jogo
+    # Exemplo de condição: se a fada colidir com um laser
+    # if pygame.sprite.spritecollideany(imagem_fada_mal, all_sprites):
+    #     show_end_screen("Fim de jogo")
+    #     # Resetar o estado do jogo aqui
+
+    # Exemplo de condição: vitória do jogador (criar uma condição de vitória)
+    # if venceu_o_jogo:
+    #     show_end_screen("Parabéns! Você venceu!")
+    #     # Resetar o estado do jogo aqui
 
     # Gera saídas
     window.blit(imagem_fundo, (0, 0))  
