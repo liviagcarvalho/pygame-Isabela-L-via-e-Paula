@@ -1,7 +1,6 @@
-
-
 import pygame
 import random
+import sys
 
 pygame.init()
 
@@ -11,11 +10,13 @@ HEIGHT = 800
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('🧚🏼🧚🏼‍♀️Fairy Game🧚🏼‍♀️🧚🏼')
 
+# ----- Carrega imagens
+
 # Carregando a imagem de fundo
 imagem_fundo = pygame.image.load('assets/img/Fundo_pygame.png').convert()
 imagem_fundo = pygame.transform.scale(imagem_fundo, (WIDTH, HEIGHT))
 
-# Carregando a imagem da fada mal
+# imagem da fada mal
 imagem_fada_mal = pygame.image.load('assets/img/FADAmal.png').convert_alpha()
 fada_mal_width = 120
 fada_mal_height = 80
@@ -23,6 +24,15 @@ imagem_fada_mal = pygame.transform.scale(imagem_fada_mal, (fada_mal_width, fada_
 fada_mal_rect = imagem_fada_mal.get_rect()
 fada_mal_rect.centerx = WIDTH // 2  # Centraliza a fada mal horizontalmente
 fada_mal_rect.top = 0  # Posiciona a fada mal no topo da janela
+
+# imagem fada bem
+fada_bem_width = 120
+fada_bem_height = 80
+imagem_fada_bem = pygame.image.load('assets/img/FADAbem.png').convert_alpha()
+imagem_fada_bem = pygame.transform.scale(imagem_fada_bem, (fada_bem_width, fada_bem_height))
+
+# tiro brilho
+imagem_tiro = pygame.image.load('assets/img/Raio_fada_bem.png').convert_alpha()
 
 # Carregando imagens dos lasers
 LASER_img_roxo = pygame.image.load('assets/img/Laser_roxo.png').convert_alpha()
@@ -42,11 +52,38 @@ LASER_img_verde_small = pygame.transform.scale(LASER_img_verde, (LASER_WIDTH, LA
 LASER_img_verdeagua_small = pygame.transform.scale(LASER_img_verdeagua, (LASER_WIDTH, LASER_HEIGHT))
 LASER_img_amarelo_small = pygame.transform.scale(LASER_img_amarelo, (LASER_WIDTH, LASER_HEIGHT))
 
-game = True
-clock = pygame.time.Clock()
-FPS = 30
+# ----- CLASSE FADA BEM
+class FADA_BEM(pygame.sprite.Sprite):
+    def __init__(self, img, all_sprites, all_tiros, imagem_tiro):
+        # Construtor da classe mãe (Sprite).
+        pygame.sprite.Sprite.__init__(self)
 
-# CLASSE LASER 
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.centerx = WIDTH / 2
+        self.rect.bottom = HEIGHT - 10
+        self.speedx = 0
+        self.all_sprites = all_sprites
+        self.all_tiro = all_tiros
+        self.imagem_img = imagem_tiro
+
+    def update(self):
+        # Atualização da posição da fada
+        self.rect.x += self.speedx
+
+        # Mantem dentro da tela
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
+        if self.rect.left < 0:
+            self.rect.left = 0
+
+    def shoot(self):
+        # A nova bala vai ser criada logo acima e no centro horizontal da nave
+        new_tiro = TIRO(self.imagem_img, self.rect.top, self.rect.centerx)
+        self.all_sprites.add(new_tiro)
+        self.all_tiro.add(new_tiro)
+
+# ----- CLASSE LASER
 class LASER(pygame.sprite.Sprite):
     def __init__(self, img):
         pygame.sprite.Sprite.__init__(self)
@@ -55,7 +92,7 @@ class LASER(pygame.sprite.Sprite):
         self.rect.x = random.randint(0, WIDTH - LASER_WIDTH)
         self.rect.y = random.randint(-100, -LASER_HEIGHT)
         self.speedx = random.randint(-3, 3)
-        self.speedy = random.randint(2, 9)
+        self.speedy = random.randint(2, 9) # velocidade (4,12) - para ultima fase (3,10) segunda fase
 
     def update(self):
         self.rect.x += self.speedx
@@ -64,69 +101,154 @@ class LASER(pygame.sprite.Sprite):
             self.rect.x = random.randint(0, WIDTH - LASER_WIDTH)
             self.rect.y = random.randint(-100, -LASER_HEIGHT)
             self.speedx = random.randint(-3, 3)
-            self.speedy = random.randint(2, 9)
+            self.speedy = random.randint(2, 9) # velocidade (4,12) - para ultima fase (3,10) segunda fase
 
-# Criando um grupo de sprites para os lasers
-all_sprites = pygame.sprite.Group()
+# ----- CLASSE TIRO
+class TIRO(pygame.sprite.Sprite):
+    # Construtor da classe.
+    def __init__(self, img, bottom, centerx):
+        # Construtor da classe mãe (Sprite).
+        pygame.sprite.Sprite.__init__(self)
 
-# Criando os lasers e adicionando ao grupo de sprites
-l1 = LASER(LASER_img_roxo_small)
-l2 = LASER(LASER_img_azul_small)
-l3 = LASER(LASER_img_rosa_small)
-l4 = LASER(LASER_img_verde_small)
-l5 = LASER(LASER_img_verdeagua_small)
-l6 = LASER(LASER_img_amarelo_small)
-all_sprites.add(l1, l2, l3, l4, l5, l6)
+        self.image = img
+        self.rect = self.image.get_rect()
 
-def show_end_screen(message):
-    window.fill((0, 0, 0))  # Preenche a tela com preto
-    font = pygame.font.SysFont(None, 55)
-    text = font.render(message, True, (255, 255, 255))
-    subtext = font.render('Clique em qualquer botão para reiniciar', True, (255, 255, 255))
-    text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50))
+        # Coloca no lugar inicial definido em x, y do constutor
+        self.rect.centerx = centerx
+        self.rect.bottom = bottom
+        self.speedy = -10  # Velocidade fixa para cima
+
+    def update(self):
+        # A bala só se move no eixo y
+        self.rect.y += self.speedy
+
+        # Se o tiro passar do inicio da tela, morre.
+        if self.rect.bottom < 0:
+            self.kill()
+
+# ----- Definindo outras variáveis do jogo
+def game_over_screen(window, WIDTH, HEIGHT):
+    font = pygame.font.Font(None, 50)
+    subfont = pygame.font.Font(None, 36)  # Fonte menor para a submensagem
+    text = font.render('Game Over', True, (0, 0, 0))
+    text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+    subtext = subfont.render('Pressione qualquer tecla para reiniciar', True, (0, 0, 0))
     subtext_rect = subtext.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
-    window.blit(text, text_rect)
-    window.blit(subtext, subtext_rect)
-    pygame.display.flip()
-
+    
+    
     waiting = True
     while waiting:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                exit()
-            if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
                 waiting = False
 
-# ===== Loop principal =====
-while game:
-    clock.tick(FPS)
+        window.blit(text, text_rect)
+        window.blit(subtext, subtext_rect)
+        pygame.display.flip()
 
-    # Trata eventos
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            game = False
+def victory_screen(window, WIDTH, HEIGHT):
+    font = pygame.font.Font(None, 50)
+    subfont = pygame.font.Font(None, 36)  # Fonte menor para a submensagem
+    text1 = font.render('Parabéns, você derrotou a fada má', True, (0, 0, 0))
+    text_rect1 = text1.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 35))
+    text2 = font.render('e salvou o Reino das Fadas!', True, (0, 0, 0))
+    text_rect2 = text2.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+    subtext = subfont.render('Pressione qualquer tecla para reiniciar', True, (0, 0, 0))
+    subtext_rect = subtext.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
+    
+    waiting = True
+    while waiting:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                waiting = False
+        
+        window.blit(text1, text_rect1)
+        window.blit(text2, text_rect2)
+        window.blit(subtext, subtext_rect)
+        pygame.display.flip()
 
-    # Atualiza estado do jogo
-    all_sprites.update()
+def main():
+    game = True
+    clock = pygame.time.Clock()
+    FPS = 30
 
-    # Verifica condições de fim de jogo
-    # Exemplo de condição: se a fada colidir com um laser
-    # if pygame.sprite.spritecollideany(imagem_fada_mal, all_sprites):
-    #     show_end_screen("Fim de jogo")
-    #     # Resetar o estado do jogo aqui
+    all_sprites = pygame.sprite.Group()
+    all_tiros = pygame.sprite.Group()
 
-    # Exemplo de condição: vitória do jogador (criar uma condição de vitória)
-    # if venceu_o_jogo:
-    #     show_end_screen("Parabéns! Você venceu!")
-    #     # Resetar o estado do jogo aqui
+    # Criando o jogador
+    jogador = FADA_BEM(imagem_fada_bem, all_sprites, all_tiros, imagem_tiro)
+    all_sprites.add(jogador)
 
-    # Gera saídas
-    window.blit(imagem_fundo, (0, 0))  
-    window.blit(imagem_fada_mal, fada_mal_rect)  
-    all_sprites.draw(window)
+    # Criando os lasers e adicionando ao grupo de sprites
+    l1 = LASER(LASER_img_roxo_small)
+    l2 = LASER(LASER_img_azul_small)
+    l3 = LASER(LASER_img_rosa_small)
+    l4 = LASER(LASER_img_verde_small)
+    l5 = LASER(LASER_img_verdeagua_small)
+    l6 = LASER(LASER_img_amarelo_small)
+    all_sprites.add(l1, l2, l3, l4, l5, l6)
 
-    pygame.display.flip()
+    player_won = False
+    player_lost = True
 
-# Finalização
-pygame.quit()
+    # ===== Loop principal =====
+    while game:
+        clock.tick(FPS)
+
+        # ----- Trata eventos
+        for event in pygame.event.get():
+            # ----- Verifica consequências
+            if event.type == pygame.QUIT:
+                game = False
+            # Verifica se apertou alguma tecla.
+            if event.type == pygame.KEYDOWN:
+                # Dependendo da tecla, altera a velocidade.
+                if event.key == pygame.K_LEFT:
+                    jogador.speedx -= 4
+                if event.key == pygame.K_RIGHT:
+                    jogador.speedx += 4
+            # Verifica se soltou alguma tecla.
+            if event.type == pygame.KEYUP:
+                # Dependendo da tecla, altera a velocidade.
+                if event.key == pygame.K_LEFT:
+                    jogador.speedx += 4
+                if event.key == pygame.K_RIGHT:
+                    jogador.speedx -= 4
+
+        # Atualiza estado do jogo
+        all_sprites.update()
+
+        # Gera saídas
+        window.blit(imagem_fundo, (0, 0))  # Desenha o fundo
+        window.blit(imagem_fada_mal, fada_mal_rect)  # Desenha a fada mal
+        all_sprites.draw(window)
+
+        pygame.display.flip()
+
+        # Verifica condições de vitória e derrota
+        # Aqui você deve adicionar a lógica real para determinar vitória e derrota
+        # Este é apenas um exemplo simplificado
+        if player_lost:
+            game_over_screen(window, WIDTH, HEIGHT)
+            # Reinicia o jogo ou faz algo apropriado aqui
+            player_lost = False  # reset para teste
+        if player_won:
+            victory_screen(window, WIDTH, HEIGHT)
+            # Reinicia o jogo ou faz algo apropriado aqui
+            player_won = False  # reset para teste
+
+    # Finalização
+    pygame.quit()
+
+if __name__ == "__main__":
+    main()
+
+
+
+
