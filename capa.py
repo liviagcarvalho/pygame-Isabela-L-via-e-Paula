@@ -113,8 +113,7 @@ all_sprites.add(l1, l2, l3, l4, l5, l6)
 
 #CAPA 
 while game:
-    if game== 
-    #   Aparece Capa
+  
     for event in pygame.event.get():
         # ----- Verifica consequências
         if event.type == pygame.QUIT:
