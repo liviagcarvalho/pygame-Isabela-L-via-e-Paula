@@ -1,5 +1,3 @@
-
-
 import pygame
 import random
 
@@ -9,8 +7,7 @@ pygame.init()
 WIDTH = 600
 HEIGHT = 800
 window = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption('🧚🏼🧚🏼‍♀️Fairy Game🧚🏼‍♀️🧚🏼')
-
+pygame.display.set_caption('Fairy Game')
 # Carregando a imagem de fundo
 imagem_fundo = pygame.image.load('assets/img/Fundo_pygame.png').convert()
 imagem_fundo = pygame.transform.scale(imagem_fundo, (WIDTH, HEIGHT))
