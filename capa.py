@@ -112,21 +112,21 @@ all_sprites.add(l1, l2, l3, l4, l5, l6)
 
 
 #CAPA 
-while game:
+# while game:
   
-    for event in pygame.event.get():
-        # ----- Verifica consequências
-        if event.type == pygame.QUIT:
-            game = False
+    # for event in pygame.event.get():
+    #     # ----- Verifica consequências
+    #     if event.type == pygame.QUIT:
+    #         game = False
 
-    # ----- Gera saídas
-    window.fill((255, 255, 255))  # Preenche com a cor branca
-    window.blit(text, ( WIDTH/2, HEIGHT/2,))
+    # # ----- Gera saídas
+    # window.fill((255, 255, 255))  # Preenche com a cor branca
+    # window.blit(text, ( WIDTH/2, HEIGHT/2,))
 
-    pygame.display.update()  # Mostra o novo frame para o jogador
+    # pygame.display.update()  # Mostra o novo frame para o jogador
 
 
-    clock.tick(FPS)
+    # clock.tick(FPS)
 
 # ===== Loop principal =====
 while game:
