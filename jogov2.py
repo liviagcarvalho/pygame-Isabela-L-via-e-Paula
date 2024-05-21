@@ -21,8 +21,8 @@ speed_fundo = 10
 
 #imagem da fada mal
 imagem_fada_mal = pygame.image.load('assets/img/FADAmal.png').convert_alpha()
-fada_mal_width = 120
-fada_mal_height = 80
+fada_mal_width = 84
+fada_mal_height = 100
 imagem_fada_mal = pygame.transform.scale(imagem_fada_mal, (fada_mal_width, fada_mal_height))
 fada_mal_rect = imagem_fada_mal.get_rect()
 fada_mal_rect.centery = HEIGHT/2  # Centraliza a fada má verticalmente
@@ -30,8 +30,8 @@ fada_mal_rect.right = 120
 
 
 #imagem fada bem 
-fada_bem_width = 120
-fada_bem_height = 80
+fada_bem_width = 98
+fada_bem_height = 90
 imagem_fada_bem = pygame.image.load('assets/img/FADAbem.png').convert_alpha()
 imagem_fada_bem = pygame.transform.scale(imagem_fada_bem, (fada_bem_width, fada_bem_height))
 ### dentro do classe 
@@ -54,7 +54,7 @@ LASER_img_verdeagua = pygame.image.load('assets/img/Laser_verdeagua.png').conver
 LASER_img_amarelo = pygame.image.load('assets/img/Laser_amarelo.png').convert_alpha()
 
 # Redimensionando imagens dos lasers
-LASER_WIDTH = 100
+LASER_WIDTH = 10
 LASER_HEIGHT = 50
 LASER_img_roxo_small = pygame.transform.scale(LASER_img_roxo, (LASER_WIDTH, LASER_HEIGHT))
 LASER_img_azul_small = pygame.transform.scale(LASER_img_azul, (LASER_WIDTH, LASER_HEIGHT))
