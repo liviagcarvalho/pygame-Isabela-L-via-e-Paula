@@ -21,8 +21,8 @@ speed_fundo = 10
 
 #imagem da fada mal
 imagem_fada_mal = pygame.image.load('assets/img/FADAmal.png').convert_alpha()
-fada_mal_width = 84
-fada_mal_height = 100
+fada_mal_width = 120
+fada_mal_height = 80
 imagem_fada_mal = pygame.transform.scale(imagem_fada_mal, (fada_mal_width, fada_mal_height))
 fada_mal_rect = imagem_fada_mal.get_rect()
 fada_mal_rect.centery = HEIGHT/2  # Centraliza a fada má verticalmente
@@ -30,8 +30,8 @@ fada_mal_rect.right = 120
 
 
 #imagem fada bem 
-fada_bem_width = 98
-fada_bem_height = 90
+fada_bem_width = 100
+fada_bem_height = 70
 imagem_fada_bem = pygame.image.load('assets/img/FADAbem.png').convert_alpha()
 imagem_fada_bem = pygame.transform.scale(imagem_fada_bem, (fada_bem_width, fada_bem_height))
 ### dentro do classe 
@@ -140,30 +140,6 @@ class LASER(pygame.sprite.Sprite):
             self.speedy = random.randint(2, 9) # velocidade (4,12) - para ultima fase (3,10) segunda fase 
 
 
-# # ----- CLASSE TIRO
-# class TIRO(pygame.sprite.Sprite):
-#     # Construtor da classe.
-#     def __init__(self, img, bottom, centerx):
-#         # Construtor da classe mãe (Sprite).
-#         pygame.sprite.Sprite.__init__(self)
-
-#         self.image = img
-#         self.rect = self.image.get_rect()
-
-#         # Coloca no lugar inicial definido em x, y do constutor
-#         self.rect.centerx = centerx
-#         self.rect.bottom = bottom
-#         self.speedy = -10  # Velocidade fixa para cima
-
-#     def update(self):
-#         # A bala só se move no eixo y
-#         self.rect.y += self.speedy
-
-#         # Se o tiro passar do inicio da tela, morre.
-#         if self.rect.bottom < 0:
-#             self.kill()
-
-
 
 
 # ----- Definindo outras variáveis do jogo
@@ -185,8 +161,7 @@ all_sprites.add(jogador)
 
 
 # ----- Criando os lasers e adicionando ao grupo de sprites
-lasers = [LASER(LASER_img_roxo_small), LASER(LASER_img_azul_small), LASER(LASER_img_rosa_small), 
-          LASER(LASER_img_verde_small), LASER(LASER_img_verdeagua_small), LASER(LASER_img_amarelo_small)]
+lasers = [LASER(LASER_img_roxo_small), LASER(LASER_img_azul_small), LASER(LASER_img_rosa_small), LASER(LASER_img_verde_small), LASER(LASER_img_verdeagua_small), LASER(LASER_img_amarelo_small)]
 
 for laser in lasers:
     all_sprites.add(laser)
@@ -297,5 +272,3 @@ while game:
 
 # Finalização
 pygame.quit()
-
-
