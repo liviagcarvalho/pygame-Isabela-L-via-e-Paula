@@ -1,3 +1,108 @@
+# import pygame
+# import random
+# import sys
+
+# pygame.init()
+
+# # ----- Gera tela principal
+# WIDTH = 600
+# HEIGHT = 800
+# window = pygame.display.set_mode((WIDTH, HEIGHT))
+# pygame.display.set_caption('🧚🏼🧚🏼‍♀️Fairy Game🧚🏼‍♀️🧚🏼')
+
+# # ----- Carrega imagens
+
+# # Carregando a imagem de fundo
+# imagem_fundo = pygame.image.load('assets/img/Fundo_pygame.png').convert()
+# imagem_fundo = pygame.transform.scale(imagem_fundo, (WIDTH, HEIGHT))
+
+# # imagem da fada mal
+# imagem_fada_mal = pygame.image.load('assets/img/FADAmal.png').convert_alpha()
+# fada_mal_width = 120
+# fada_mal_height = 80
+# imagem_fada_mal = pygame.transform.scale(imagem_fada_mal, (fada_mal_width, fada_mal_height))
+# fada_mal_rect = imagem_fada_mal.get_rect()
+# fada_mal_rect.centerx = WIDTH // 2  # Centraliza a fada mal horizontalmente
+# fada_mal_rect.top = 0  # Posiciona a fada mal no topo da janela
+
+# # imagem fada bem
+# fada_bem_width = 120
+# fada_bem_height = 80
+# imagem_fada_bem = pygame.image.load('assets/img/FADAbem.png').convert_alpha()
+# imagem_fada_bem = pygame.transform.scale(imagem_fada_bem, (fada_bem_width, fada_bem_height))
+
+# # tiro brilho
+# imagem_tiro = pygame.image.load('assets/img/Raio_fada_bem.png').convert_alpha()
+
+# # Carregando imagens dos lasers
+# LASER_img_roxo = pygame.image.load('assets/img/Laser_roxo.png').convert_alpha()
+# LASER_img_azul = pygame.image.load('assets/img/Laser_azul.png').convert_alpha()
+# LASER_img_rosa = pygame.image.load('assets/img/Laser_rosa.png').convert_alpha()
+# LASER_img_verde = pygame.image.load('assets/img/Laser_verde.png').convert_alpha()
+# LASER_img_verdeagua = pygame.image.load('assets/img/Laser_verdeagua.png').convert_alpha()
+# LASER_img_amarelo = pygame.image.load('assets/img/Laser_amarelo.png').convert_alpha()
+
+# # Redimensionando imagens dos lasers
+# LASER_WIDTH = 100
+# LASER_HEIGHT = 50
+# LASER_img_roxo_small = pygame.transform.scale(LASER_img_roxo, (LASER_WIDTH, LASER_HEIGHT))
+# LASER_img_azul_small = pygame.transform.scale(LASER_img_azul, (LASER_WIDTH, LASER_HEIGHT))
+# LASER_img_rosa_small = pygame.transform.scale(LASER_img_rosa, (LASER_WIDTH, LASER_HEIGHT))
+# LASER_img_verde_small = pygame.transform.scale(LASER_img_verde, (LASER_WIDTH, LASER_HEIGHT))
+# LASER_img_verdeagua_small = pygame.transform.scale(LASER_img_verdeagua, (LASER_WIDTH, LASER_HEIGHT))
+# LASER_img_amarelo_small = pygame.transform.scale(LASER_img_amarelo, (LASER_WIDTH, LASER_HEIGHT))
+
+# # ----- CLASSE FADA BEM
+# class FADA_BEM(pygame.sprite.Sprite):
+#     def __init__(self, img, all_sprites, all_tiros, imagem_tiro):
+#         # Construtor da classe mãe (Sprite).
+#         pygame.sprite.Sprite.__init__(self)
+
+#         self.image = img
+#         self.rect = self.image.get_rect()
+#         self.rect.centerx = WIDTH / 2
+#         self.rect.bottom = HEIGHT - 10
+#         self.speedx = 0
+#         self.all_sprites = all_sprites
+#         self.all_tiro = all_tiros
+#         self.imagem_img = imagem_tiro
+
+#     def update(self):
+#         # Atualização da posição da fada
+#         self.rect.x += self.speedx
+
+#         # Mantem dentro da tela
+#         if self.rect.right > WIDTH:
+#             self.rect.right = WIDTH
+#         if self.rect.left < 0:
+#             self.rect.left = 0
+
+#     def shoot(self):
+#         # A nova bala vai ser criada logo acima e no centro horizontal da nave
+#         new_tiro = TIRO(self.imagem_img, self.rect.top, self.rect.centerx)
+#         self.all_sprites.add(new_tiro)
+#         self.all_tiro.add(new_tiro)
+
+# # ----- CLASSE LASER
+# class LASER(pygame.sprite.Sprite):
+#     def __init__(self, img):
+#         pygame.sprite.Sprite.__init__(self)
+#         self.image = img
+#         self.rect = self.image.get_rect()
+#         self.rect.x = random.randint(0, WIDTH - LASER_WIDTH)
+#         self.rect.y = random.randint(-100, -LASER_HEIGHT)
+#         self.speedx = random.randint(-3, 3)
+#         self.speedy = random.randint(2, 9) # velocidade (4,12) - para ultima fase (3,10) segunda fase
+
+#     def update(self):
+#         self.rect.x += self.speedx
+#         self.rect.y += self.speedy
+#         if self.rect.top > HEIGHT or self.rect.right < 0 or self.rect.left > WIDTH:
+#             self.rect.x = random.randint(0, WIDTH - LASER_WIDTH)
+#             self.rect.y = random.randint(-100, -LASER_HEIGHT)
+#             self.speedx = random.randint(-3, 3)
+#             self.speedy = random.randint(2, 9) # velocidade (4,12) - para ultima fase (3,10) segunda fase
+
 import pygame
 import random
 import sys
@@ -53,6 +158,46 @@ LASER_img_verdeagua_small = pygame.transform.scale(LASER_img_verdeagua, (LASER_W
 LASER_img_amarelo_small = pygame.transform.scale(LASER_img_amarelo, (LASER_WIDTH, LASER_HEIGHT))
 
 # ----- CLASSE FADA BEM
+class FadaBem(pygame.sprite.Sprite):
+    def __init__(self, image):
+        super().__init__()
+        self.image = image
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randint(0, WIDTH - self.rect.width)
+        self.rect.y = random.randint(0, HEIGHT - self.rect.height)
+        self.speed_x = random.randint(-3, 3)
+        self.speed_y = random.randint(-3, 3)
+
+    def update(self):
+        self.rect.x += self.speed_x
+        self.rect.y += self.speed_y
+        # Inverte a direção se atingir as bordas da tela
+        if self.rect.left < 0 or self.rect.right > WIDTH:
+            self.speed_x = -self.speed_x
+        if self.rect.top < 0 or self.rect.bottom > HEIGHT:
+            self.speed_y = -self.speed_y
+
+# ----- CLASSE FADA MAL
+class FadaMal(pygame.sprite.Sprite):
+    def __init__(self, image):
+        super().__init__()
+        self.image = image
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randint(0, WIDTH - self.rect.width)
+        self.rect.y = random.randint(0, HEIGHT - self.rect.height)
+        self.speed_x = random.randint(-3, 3)
+        self.speed_y = random.randint(-3, 3)
+
+    def update(self):
+        self.rect.x += self.speed_x
+        self.rect.y += self.speed_y
+        # Inverte a direção se atingir as bordas da tela
+        if self.rect.left < 0 or self.rect.right > WIDTH:
+            self.speed_x = -self.speed_x
+        if self.rect.top < 0 or self.rect.bottom > HEIGHT:
+            self.speed_y = -self.speed_y
+
+# ----- CLASSE FADA BEM
 class FADA_BEM(pygame.sprite.Sprite):
     def __init__(self, img, all_sprites, all_tiros, imagem_tiro):
         # Construtor da classe mãe (Sprite).
@@ -92,16 +237,31 @@ class LASER(pygame.sprite.Sprite):
         self.rect.x = random.randint(0, WIDTH - LASER_WIDTH)
         self.rect.y = random.randint(-100, -LASER_HEIGHT)
         self.speedx = random.randint(-3, 3)
-        self.speedy = random.randint(2, 9) # velocidade (4,12) - para ultima fase (3,10) segunda fase
+        self.speedy = random.randint(2, 9) # velocidade (4,12) - para ultima fase (3,
 
-    def update(self):
-        self.rect.x += self.speedx
-        self.rect.y += self.speedy
-        if self.rect.top > HEIGHT or self.rect.right < 0 or self.rect.left > WIDTH:
-            self.rect.x = random.randint(0, WIDTH - LASER_WIDTH)
-            self.rect.y = random.randint(-100, -LASER_HEIGHT)
-            self.speedx = random.randint(-3, 3)
-            self.speedy = random.randint(2, 9) # velocidade (4,12) - para ultima fase (3,10) segunda fase
+# Criação das fadas do bem e do mal
+fadas_bem = pygame.sprite.Group()
+fadas_mal = pygame.sprite.Group()
+
+# Criando fadas do bem
+for _ in range(5):
+    fada_bem = FadaBem(imagem_fada_bem)
+    fadas_bem.add(fada_bem)
+
+# Criando fadas do mal
+for _ in range(5):
+    fada_mal = FadaMal(imagem_fada_mal)
+    fadas_mal.add(fada_mal)
+
+# Atualização das fadas do bem e do mal
+fadas_bem.update()
+fadas_mal.update()
+
+# Desenho das fadas do bem e do mal na tela
+fadas_bem.draw(window)
+fadas_mal.draw(window)
+
+
 
 # ----- CLASSE TIRO
 class TIRO(pygame.sprite.Sprite):
@@ -147,6 +307,7 @@ def game_over_screen(window, WIDTH, HEIGHT):
 
         window.blit(text, text_rect)
         window.blit(subtext, subtext_rect)
+        window.blit(imagem_fada_mal, fada_mal_rect) 
         pygame.display.flip()
 
 def victory_screen(window, WIDTH, HEIGHT):
@@ -171,7 +332,10 @@ def victory_screen(window, WIDTH, HEIGHT):
         window.blit(text1, text_rect1)
         window.blit(text2, text_rect2)
         window.blit(subtext, subtext_rect)
+        window.blit(imagem_fada_mal, fada_mal_rect) 
         pygame.display.flip()
+
+
 
 def main():
     game = True
@@ -248,7 +412,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
 
