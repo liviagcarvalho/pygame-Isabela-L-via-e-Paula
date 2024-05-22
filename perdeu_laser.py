@@ -57,7 +57,7 @@ def perdeu_laser():
     window.blit(inicio, (WIDTH // 2 - inicio.get_width() // 2, HEIGHT // 38))
     pygame.display.flip()
 
-    # Aguarda o jogador pressionar uma tecla ou botão do mouse para iniciar o jogo
+    ## Aguarda o jogador pressionar uma tecla ou botão do mouse para iniciar o jogo
     waiting = True
     while waiting:
         for event in pygame.event.get():
@@ -66,5 +66,6 @@ def perdeu_laser():
                 exit()
             if event.type == pygame.KEYUP or event.type == pygame.MOUSEBUTTONUP:
                 waiting = False
-
-perdeu_laser()
+            
+    perdeu_laser()
+    

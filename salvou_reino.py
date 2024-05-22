@@ -56,16 +56,14 @@ def salvou_reino():
     window.blit(inicio, (WIDTH // 2 - inicio.get_width() // 2, HEIGHT // 38))
     pygame.display.flip()
 
+    # Aguarda o jogador pressionar uma tecla ou botão do mouse para iniciar o jogo
     waiting = True
     while waiting:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                sys.exit()
-            if event.type == pygame.KEYDOWN:
+                exit()
+            if event.type == pygame.KEYUP or event.type == pygame.MOUSEBUTTONUP:
                 waiting = False
-        window.blit(imagem_fundo, imagem_fundo_rect)
-        window.blit(imagem_fundo, imagem_fundo_rect_2)
-        pygame.display.flip()
-
+                
 salvou_reino()
