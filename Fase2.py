@@ -1,10 +1,10 @@
 import pygame
 import random
-from inicio import*
+
 
 
 K = 0 
-def fase1 (): 
+def fase2 (): 
     pygame.init()
 
     # ----- Gera tela principal
@@ -39,13 +39,6 @@ def fase1 ():
     imagem_fada_bem = pygame.image.load('assets/img/FADAbem.png').convert_alpha()
     imagem_fada_bem = pygame.transform.scale(imagem_fada_bem, (fada_bem_width, fada_bem_height))
     ### dentro do classe 
-
-
-
-
-
-    # #tiro brilho 
-    # imagem_tiro = pygame.image.load('assets/img/Raio_fada_bem.png').convert_alpha()
 
 
 
@@ -116,7 +109,7 @@ def fase1 ():
             self.rect.x = random.randint(0, WIDTH - LASER_WIDTH)
             self.rect.y = random.randint(-100, -LASER_HEIGHT)
             self.speedx = random.randint(-3, 3)
-            self.speedy = random.randint(2, 9) # velocidade (4,12) - para ultima fase (3,10) segunda fase 
+            self.speedy = random.randint(3,10) #(2, 9) # velocidade (4,12) - para ultima fase (3,10) segunda fase 
 
         def update(self):
             self.rect.x += self.speedx
@@ -125,7 +118,7 @@ def fase1 ():
                 self.rect.x = random.randint(0, WIDTH - LASER_WIDTH)
                 self.rect.y = random.randint(-100, -LASER_HEIGHT)
                 self.speedx = random.randint(-3, 3)
-                self.speedy = random.randint(2, 9) # velocidade (4,12) - para ultima fase (3,10) segunda fase 
+                self.speedy = random.randint (3,10) #(2, 9) # velocidade (4,12) - para ultima fase (3,10) segunda fase 
 
 
 
@@ -175,7 +168,12 @@ def fase1 ():
     #     l = LASER(random.choice([LASER_img_roxo_small, LASER_img_azul_small, LASER_img_rosa_small, LASER_img_verde_small, LASER_img_amarelo_small, LASER_img_verdeagua_small]))
     #     all_sprites.add(l)
 
-
+    #AUMENTA QUANTIDADE DE LASER PARA FASES FUTURAS!!!!!!!!!
+    # Criando mais lasers e adicionando ao grupo de sprites
+    num_lasers = 10  # Aumentando a quantidade de lasers
+    for _ in range(num_lasers):
+        l = LASER(random.choice([LASER_img_roxo_small, LASER_img_azul_small, LASER_img_rosa_small, LASER_img_verde_small, LASER_img_amarelo_small, LASER_img_verdeagua_small]))
+        all_sprites.add(l)
 
 
 
@@ -262,8 +260,6 @@ def fase1 ():
 
         pygame.display.update()
 
-fase1 ()
+fase2 ()
 # Finalização
 pygame.quit()
-
-
