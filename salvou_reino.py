@@ -18,7 +18,7 @@ imagem_fundo_rect_2 = imagem_fundo_rect.copy()
 imagem_fundo_rect_2.x -= imagem_fundo_rect_2.width
 speed_fundo = 10 
 
-def victory_screen(window, WIDTH, HEIGHT):
+def salvou_reino():
     window.blit(imagem_fundo, imagem_fundo_rect)
     window.blit(imagem_fundo, imagem_fundo_rect_2)
     
@@ -68,4 +68,4 @@ def victory_screen(window, WIDTH, HEIGHT):
         window.blit(imagem_fundo, imagem_fundo_rect_2)
         pygame.display.flip()
 
-victory_screen()
+salvou_reino()

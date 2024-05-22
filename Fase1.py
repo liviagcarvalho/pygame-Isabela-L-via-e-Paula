@@ -156,11 +156,12 @@ def fase1():
         if pygame.sprite.spritecollide(jogador, all_lasers, False):
             import perdeu_laser
             perdeu_laser()
+            
 
         # Verifica se houve colisão entre fadas
         if jogador.rect.colliderect(fada_mal_rect):
-            import tela_prox_nivel
-            tela_prox_nivel()
+            import salvou_reino
+            salvou_reino()
 
         window.blit(imagem_fada_mal, fada_mal_rect)  # Desenha a fada má
         all_sprites.draw(window)
