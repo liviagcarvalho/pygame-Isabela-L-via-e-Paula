@@ -69,10 +69,10 @@ def fase2 ():
 
     # ----- CLASSE FADA BEM 
     class FADA_BEM(pygame.sprite.Sprite):
-        def __init__(self, img, all_sprites):
-        #def __init__(self, img, all_sprites, all_tiros, imagem_tiro):
+        def _init_(self, img, all_sprites):
+        #def _init_(self, img, all_sprites, all_tiros, imagem_tiro):
             # Construtor da classe mãe (Sprite).
-            pygame.sprite.Sprite.__init__(self)
+            pygame.sprite.Sprite._init_(self)
 
             self.image = img
             self.rect = self.image.get_rect()
@@ -102,8 +102,8 @@ def fase2 ():
 
     # ----- CLASSE LASER 
     class LASER(pygame.sprite.Sprite):
-        def __init__(self, img):
-            pygame.sprite.Sprite.__init__(self)
+        def _init_(self, img):
+            pygame.sprite.Sprite._init_(self)
             self.image = img
             self.rect = self.image.get_rect()
             self.rect.x = random.randint(0, WIDTH - LASER_WIDTH)
@@ -174,6 +174,7 @@ def fase2 ():
     for _ in range(num_lasers):
         l = LASER(random.choice([LASER_img_roxo_small, LASER_img_azul_small, LASER_img_rosa_small, LASER_img_verde_small, LASER_img_amarelo_small, LASER_img_verdeagua_small]))
         all_sprites.add(l)
+        all_lasers.add(l)
 
 
 
