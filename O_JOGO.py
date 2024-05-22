@@ -5,7 +5,7 @@ import time
 from inicio import*
 from Fase1 import* 
 from Fase2 import*
-from telafinal import*
+from salvou_reino import*
 
 
 # levels = [1,2,3]
