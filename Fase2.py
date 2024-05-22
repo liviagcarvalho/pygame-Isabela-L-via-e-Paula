@@ -1,6 +1,7 @@
 
 import pygame
 import random
+from tela_prox_nivel import* 
 
 def fase2():
     pygame.init()
@@ -164,8 +165,8 @@ def fase2():
 
         # Verifica se houve colisão entre fadas
         if jogador.rect.colliderect(fada_mal_rect):
-            # import tela_prox_nivel
-            K = 3 
+            prox_nivel()
+            K = 1
 
 
         # Adiciona mais lasers após um intervalo
