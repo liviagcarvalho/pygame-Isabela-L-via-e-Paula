@@ -3,7 +3,7 @@ import random
 import time
 
 from inicio import*
-from jogov2 import* 
+from FASE1 import* 
 
 
 levels = [1,2,3]
