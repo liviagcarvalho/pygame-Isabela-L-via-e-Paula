@@ -7,7 +7,6 @@ from Fase1 import*
 from Fase2 import*
 from Fase3 import*
 from salvou_reino import*
-from tela_prox_nivel import* 
 
 
 levels = [1,2,3]
