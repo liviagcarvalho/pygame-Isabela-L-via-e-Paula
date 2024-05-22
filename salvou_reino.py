@@ -1,18 +1,61 @@
 import pygame
 import random
 import sys
-pygame.init()
 
-def victory_screen():
-    font = pygame.font.Font(None, 50)
-    subfont = pygame.font.Font(None, 36)  # Fonte menor para a submensagem
-    text1 = font.render('Parabéns, você derrotou a fada má', True, (0, 0, 0))
-    text_rect1 = text1.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 35))
-    text2 = font.render('e salvou o Reino das Fadas!', True, (0, 0, 0))
-    text_rect2 = text2.get_rect(center=(WIDTH // 2, HEIGHT // 2))
-    subtext = subfont.render('Pressione qualquer tecla para reiniciar', True, (0, 0, 0))
-    subtext_rect = subtext.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
+pygame.init()
+# ----- Gera tela principal
+WIDTH = 900
+HEIGHT = 600
+window = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption('🧚🏼🧚🏼‍♀️Fairy Game🧚🏼‍♀️🧚🏼')
+
+# ----- Carrega imagens
+# Carregando a imagem de fundo
+imagem_fundo = pygame.image.load('assets/img/Fundo_pygame3.png').convert()
+imagem_fundo = pygame.transform.scale(imagem_fundo, (WIDTH, HEIGHT))
+imagem_fundo_rect = imagem_fundo.get_rect()
+imagem_fundo_rect_2 = imagem_fundo_rect.copy()
+imagem_fundo_rect_2.x -= imagem_fundo_rect_2.width
+speed_fundo = 10 
+
+def victory_screen(window, WIDTH, HEIGHT):
+    window.blit(imagem_fundo, imagem_fundo_rect)
+    window.blit(imagem_fundo, imagem_fundo_rect_2)
     
+    # Fonte maior e cor rosa choque brilhante para o título
+    title_font = pygame.font.SysFont(None, 72)
+    title = title_font.render("Você salvou o reino das fadas!", True, (255, 20, 147))  # Rosa choque brilhante
+    
+    # Fonte menor para a história
+    font = pygame.font.SysFont(None, 30)  # Corrigido: Alterei para 'font' ao invés de 'title_font'
+    acontecimento = ["Parabéns!"]  # Corrigido: Corrigi a ortografia de "Parabéns!"
+
+    font_inicio = pygame.font.SysFont(None, 30)
+    inicio = font_inicio.render("Clique em qualquer botão para reiniciar o jogo.", True, (255, 255, 255))
+
+    # Desenha o título
+    window.blit(title, (WIDTH // 2 - title.get_width() // 2, HEIGHT // 4))
+    pygame.display.flip()
+    
+    # Desenha a história de forma animada
+    for i, line in enumerate(acontecimento):
+        rendered_line = ""
+        for char in line:
+            rendered_line += char
+            text = font.render(rendered_line, True, (255, 255, 255))
+            window.blit(imagem_fundo, imagem_fundo_rect)
+            window.blit(imagem_fundo, imagem_fundo_rect_2)
+            window.blit(title, (WIDTH // 2 - title.get_width() // 2, HEIGHT // 4))
+            for j in range(i):
+                previous_text = font.render(acontecimento[j], True, (255, 255, 255))
+                window.blit(previous_text, (WIDTH // 2 - previous_text.get_width() // 2, HEIGHT // 3 + 40 * (j + 1)))
+            window.blit(text, (WIDTH // 2 - text.get_width() // 2, HEIGHT // 3 + 40 * (i + 1)))
+            pygame.display.flip()
+            pygame.time.wait(50)  # Delay de 50ms entre cada letra
+
+    window.blit(inicio, (WIDTH // 2 - inicio.get_width() // 2, HEIGHT // 38))
+    pygame.display.flip()
+
     waiting = True
     while waiting:
         for event in pygame.event.get():
@@ -21,11 +64,8 @@ def victory_screen():
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 waiting = False
-        
-        window.blit(text1, text_rect1)
-        window.blit(text2, text_rect2)
-        window.blit(subtext, subtext_rect)
-        window.blit(imagem_fada_mal, fada_mal_rect) 
+        window.blit(imagem_fundo, imagem_fundo_rect)
+        window.blit(imagem_fundo, imagem_fundo_rect_2)
         pygame.display.flip()
 
 victory_screen()
