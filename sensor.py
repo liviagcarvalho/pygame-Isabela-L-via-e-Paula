@@ -221,4 +221,3 @@ while game:
 # Finalização
 pygame.quit()
 
-
