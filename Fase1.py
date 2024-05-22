@@ -2,7 +2,7 @@
 import pygame
 import random
 from inicio import*
-from tela_prox_nivel import* 
+
 
 
 def fase1():
@@ -231,7 +231,7 @@ def fase1():
             
         # Verifica se houve colisão entre fadas
         if jogador.rect.colliderect(fada_mal_rect):
-            prox_nivel()
+            import tela_prox_nivel 
             K = 1
 
             # import salvou_reino
