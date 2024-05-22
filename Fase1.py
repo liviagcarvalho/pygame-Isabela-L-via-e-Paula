@@ -1,5 +1,6 @@
 import pygame
 import random
+from inicio import*
 
 
 K = 0 
@@ -242,11 +243,13 @@ def fase1 ():
             perdeu_laser()
 
 
+            #em vez de game= False -> mostrar imagem de voce perdeu recomecar clicando 
+
 
     # Verifica se houve colisão entre fadas
         if jogador.rect.colliderect(fada_mal_rect):
             K+= 1 
-        
+
 
 
 
