@@ -8,13 +8,13 @@ import random
 
 def fase1():
     pygame.init()
-    pygame.mixer.init()
+    # pygame.mixer.init()
 
-    # Carrega a música
-    pygame.mixer.music.load('assets/music/tinker.mp3')
+    # # Carrega a música
+    # pygame.mixer.music.load('assets/music/tinker.mp3')
     
-    # Reproduz a música em loop (-1 significa repetir indefinidamente)
-    pygame.mixer.music.play(-1)
+    # # Reproduz a música em loop (-1 significa repetir indefinidamente)
+    # pygame.mixer.music.play(-1)
 
     # ----- Gera tela principal
     WIDTH = 900
@@ -236,11 +236,11 @@ def fase1():
                             exit()
                         if event.type == pygame.KEYUP or event.type == pygame.MOUSEBUTTONUP:
                             waiting = False
-                    
+                        
             perdeu_laser()
             pygame.init()
             fase1()
-
+            
 
         # Verifica se houve colisão entre fadas
         elif jogador.rect.colliderect(fada_mal_rect):
