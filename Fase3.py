@@ -110,7 +110,7 @@ def fase3():
     all_sprites.add(jogador)
 
     # Criando múltiplos lasers e adicionando ao grupo de sprites
-    num_lasers_per_color = 1 # 2 para fase 2 #1 pra fase 1 # Número de lasers por cor
+    num_lasers_per_color = 3 # 2 para fase 2 #1 pra fase 1 # Número de lasers por cor
     for color, img in laser_imgs.items():
         for _ in range(num_lasers_per_color):
             laser = LASER(img)
