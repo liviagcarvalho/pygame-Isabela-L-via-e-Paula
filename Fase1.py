@@ -5,15 +5,22 @@ from inicio import*
 
 from Fase2 import*
 from Fase3 import*
-from salvou_reino import*
+# from salvou_reino import*
 
 K=0
 def fase1():
     pygame.init()
+    pygame.mixer.init()
+    pygame.init()
+    pygame.mixer.music.load('assets/music/Tinker Bell A Divisão Clipe Oficial.mp3')
+    pygame.mixer.music.play(-1)
     K=0
     # ----- Gera tela principal
     WIDTH = 900
     HEIGHT = 600
+
+
+
     window = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption('🧚🏼🧚🏼‍♀️Fairy Game🧚🏼‍♀️🧚🏼')
 
@@ -228,26 +235,21 @@ def fase1():
                             waiting = False
                     
             perdeu_laser()
+
             pygame.init()
-            fase1()
+            pygame.mixer.music.load('assets/music/Tinker Bell A Divisão Clipe Oficial.mp3')
+            pygame.mixer.music.play(-1)
+    
+            # fase1()
 
             
-        # # Verifica se houve colisão entre fadas
         # if jogador.rect.colliderect(fada_mal_rect):
-        #     game = False
-        #     import tela_prox_nivel 
-        #     K = 1
-        #     game = False
-        #     # import salvou_reino
-        #     # salvou_reino()
-            
-        if jogador.rect.colliderect(fada_mal_rect):
-            show_start_screen()  
-            fase2()  # Start the second level
-            K+=1
-            return 
-        window.blit(imagem_fada_mal, fada_mal_rect)  # Desenha a fada má
-        all_sprites.draw(window)
+        #     show_start_screen()  
+        #     fase2()  # Start the second level
+        #     K+=1
+        #     return 
+        # window.blit(imagem_fada_mal, fada_mal_rect)  # Desenha a fada má
+        # all_sprites.draw(window)
 
         pygame.display.update()
 

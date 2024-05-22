@@ -66,4 +66,4 @@ def salvou_reino():
             if event.type == pygame.KEYUP or event.type == pygame.MOUSEBUTTONUP:
                 waiting = False
                 
-salvou_reino()
+# salvou_reino()

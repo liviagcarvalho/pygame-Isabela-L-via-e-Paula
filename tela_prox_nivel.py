@@ -67,4 +67,4 @@ def prox_nivel():
             if event.type == pygame.KEYUP or event.type == pygame.MOUSEBUTTONUP:
                 waiting = False
 
-prox_nivel()
+# prox_nivel()
