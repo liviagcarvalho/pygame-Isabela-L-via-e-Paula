@@ -70,13 +70,6 @@ LASER_img_amarelo_small = pygame.transform.scale(LASER_img_amarelo, (LASER_WIDTH
 
 
 
-
-
-
-
-
-
-
 # ----- CLASSE FADA BEM 
 class FADA_BEM(pygame.sprite.Sprite):
     def __init__(self, img, all_sprites):
@@ -108,15 +101,6 @@ class FADA_BEM(pygame.sprite.Sprite):
             self.rect.bottom = HEIGHT
         if self.rect.top < 0:
             self.rect.top = 0
-
-
-
-    # def shoot(self):
-    #     # A nova bala vai ser criada logo acima e no centro horizontal da nave
-    #     new_tiro = TIRO(self.imagem_img, self.rect.top, self.rect.centerx)
-    #     self.all_sprites.add(new_tiro)
-    #     self.all_bullets.add(new_tiro)
-
 
 
 # ----- CLASSE LASER 
@@ -155,7 +139,6 @@ all_sprites = pygame.sprite.Group()
 all_lasers = pygame.sprite.Group()
 
 # Criando o jogador
-#jogador = FADA_BEM(imagem_fada_bem, all_sprites, all_tiros, imagem_tiro)
 jogador = FADA_BEM(imagem_fada_bem, all_sprites)
 all_sprites.add(jogador)
 
@@ -192,8 +175,8 @@ all_sprites.add(l1, l2, l3, l4, l5, l6)
 
 
 
-
 # ===== Loop principal =====
+
 while game:
     clock.tick(FPS)
 
@@ -225,7 +208,7 @@ while game:
 
 
 
- # Atualiza estado do jogo
+    # Atualiza estado do jogo
     all_sprites.update()
 
     window.fill ((0,0,0))
@@ -242,6 +225,8 @@ while game:
     imagem_fundo_rect_2 = imagem_fundo_rect.copy()
     imagem_fundo_rect_2.x -= imagem_fundo_rect_2.width
     window.blit (imagem_fundo, imagem_fundo_rect_2)
+
+
 
 
 
@@ -266,9 +251,8 @@ while game:
 
 
 
-
-
     pygame.display.update()
+
 
 # Finalização
 pygame.quit()
