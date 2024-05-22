@@ -4,7 +4,14 @@ from tela_prox_nivel import*
 
 def fase3():
     pygame.init()
+    pygame.mixer.init()
 
+    # Carrega a música
+    pygame.mixer.music.load('assets/music/tinker.mp3')
+    
+    # Reproduz a música em loop (-1 significa repetir indefinidamente)
+    pygame.mixer.music.play(-1)
+    
     # ----- Gera tela principal
     WIDTH = 900
     HEIGHT = 600
