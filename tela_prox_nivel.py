@@ -32,7 +32,7 @@ def prox_nivel():
     acontecimento = ["Você  passou para o próximo nível."]
 
     font_inicio = pygame.font.SysFont(None, 30)
-    inicio = font_inicio.render("Clique em qualquer botão para reiniciar o jogo.", True, (255, 255, 255))
+    inicio = font_inicio.render("Clique em qualquer botão para continuar o jogo.", True, (255, 255, 255))
 
     # Desenha o título
     window.blit(title, (WIDTH // 2 - title.get_width() // 2, HEIGHT // 4))
@@ -67,5 +67,4 @@ def prox_nivel():
             if event.type == pygame.KEYUP or event.type == pygame.MOUSEBUTTONUP:
                 waiting = False
 
-
-#perdeu_laser()
+prox_nivel()

@@ -159,7 +159,8 @@ def fase1():
 
         # Verifica se houve colisão entre fadas
         if jogador.rect.colliderect(fada_mal_rect):
-            game = False
+            import tela_prox_nivel
+            tela_prox_nivel()
 
         window.blit(imagem_fada_mal, fada_mal_rect)  # Desenha a fada má
         all_sprites.draw(window)
