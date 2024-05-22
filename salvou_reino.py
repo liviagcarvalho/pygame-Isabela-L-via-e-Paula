@@ -141,6 +141,6 @@ def salvou_reino():
                 exit()
             if event.type == pygame.KEYUP or event.type == pygame.MOUSEBUTTONUP:
                 import O_JOGO
-                # waiting = False
+                
 
 salvou_reino()

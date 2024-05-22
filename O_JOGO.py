@@ -7,26 +7,3 @@ from Fase1 import*
 # from tela_prox_nivel import*
 from Fase3 import*
 
-
-
-# levels = [1,2,3]
-
-
-# for i in levels:
-#     if i == 1: 
-#         if K== 0:
-#             show_start_screen()
-#             fase1 ()
-                
-#             if K == 1:
-#                     # prox_nivel()
-#                 fase2()
-#                     # igual fase 1 so que maia rapido
-
-#                 if K == 2: 
-#                             # prox_nivel()
-#                     fase3()
-#                             # igual fase 2 so que mais rapido 
-
-#                     if K == 3:
-#                         salvou_reino()
