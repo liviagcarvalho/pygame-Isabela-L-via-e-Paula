@@ -164,7 +164,8 @@ def fase2():
 
         # Verifica se houve colisão entre fadas
         if jogador.rect.colliderect(fada_mal_rect):
-            import tela_prox_nivel
+            # import tela_prox_nivel
+            K = 3 
 
 
         # Adiciona mais lasers após um intervalo

@@ -5,11 +5,13 @@ import time
 from inicio import*
 from Fase1 import* 
 from Fase2 import*
+from Fase3 import*
 from salvou_reino import*
 
 
 levels = [1,2,3]
 
+K = 0 
 for i in levels:
     if i == 1: 
         show_start_screen()
@@ -19,13 +21,10 @@ for i in levels:
             fase2()
             # igual fase 1 so que maia rapido
 
-    if i == 2:
-        if K == 2: 
-            fase3()
-            # igual fase 2 so que mais rapido 
+            if K == 2: 
+                fase3()
+                # igual fase 2 so que mais rapido 
 
-    if i == 3:
-        if K == 3:
-            #tela de voce ganhou 
-        
-
+                if K == 3:
+                    salvou_reino()
+                     #tela de voce ganhou 
