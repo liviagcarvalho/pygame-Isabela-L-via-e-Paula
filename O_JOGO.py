@@ -5,7 +5,7 @@ import time
 # from inicio import*
 from Fase1 import* 
 from Fase2 import*
-# from Fase3 import*
+from Fase3 import*
 from salvou_reino import*
 
 
