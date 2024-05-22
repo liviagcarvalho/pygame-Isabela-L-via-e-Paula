@@ -30,9 +30,12 @@ def show_start_screen():
     # Fonte menor para a história
     font = pygame.font.SysFont(None, 40)
     story = [
-        "O mundo das fadas está em perigo por causa da fada má",
-        "e você, vai ajudar a salvar o reino!",
-        "Sua missão é alcançar a fada má sem ser pego",
+       "Fairytopia, o mundo das fadas, está em perigo!",
+        "Henna, a fada má quer tomar o lugar",
+        "da Rainha Marabella!",
+        "Agora, você, a guardian da Rainha",
+        "vai ajudar a salvar o reino!",
+        "Sua missão é alcançar a Henna sem ser pega",
         "por um dos lasers laçados por ela.",
         "",
     ]
