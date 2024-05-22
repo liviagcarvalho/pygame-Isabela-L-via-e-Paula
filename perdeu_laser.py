@@ -67,5 +67,4 @@ def perdeu_laser():
             if event.type == pygame.KEYUP or event.type == pygame.MOUSEBUTTONUP:
                 waiting = False
 
-
-#perdeu_laser()
+perdeu_laser()
