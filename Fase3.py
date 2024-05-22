@@ -243,6 +243,7 @@ def fase3():
     
 
 fase3()
+
 # import pygame
 # import random
 # from tela_prox_nivel import* 

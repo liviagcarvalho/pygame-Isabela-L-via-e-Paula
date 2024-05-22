@@ -3,10 +3,10 @@ import random
 import time
 from inicio import*
 from Fase1 import* 
-from Fase2 import*
-from tela_prox_nivel import*
+# from Fase2 import*
+# from tela_prox_nivel import*
 from Fase3 import*
-from salvou_reino import*
+
 
 
 # levels = [1,2,3]
