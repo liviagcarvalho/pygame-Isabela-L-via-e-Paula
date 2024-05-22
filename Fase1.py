@@ -223,10 +223,11 @@ def fase1():
                             exit()
                         if event.type == pygame.KEYUP or event.type == pygame.MOUSEBUTTONUP:
                             waiting = False
-                            
+                    
             perdeu_laser()
             pygame.init()
             fase1()
+
             
         # Verifica se houve colisão entre fadas
         if jogador.rect.colliderect(fada_mal_rect):
