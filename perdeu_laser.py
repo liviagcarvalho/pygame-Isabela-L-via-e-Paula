@@ -19,7 +19,7 @@ imagem_fundo_rect_2.x -= imagem_fundo_rect_2.width
 speed_fundo = 10 
 
 # ----- Função para mostrar a tela inicial
-def tela_game_over():
+def perdeu_laser():
     window.blit(imagem_fundo, imagem_fundo_rect)
     window.blit(imagem_fundo, imagem_fundo_rect_2)
     
@@ -68,4 +68,4 @@ def tela_game_over():
                 waiting = False
 
 
-tela_game_over()
+#perdeu_laser()
