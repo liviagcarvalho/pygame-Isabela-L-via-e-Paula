@@ -18,18 +18,18 @@ imagem_fundo_rect_2 = imagem_fundo_rect.copy()
 imagem_fundo_rect_2.x -= imagem_fundo_rect_2.width
 speed_fundo = 10 
 
-# ----- Função para mostrar a quando é atingido por laser
-def perdeu_laser():
+# ----- Função para mostrar a tela quando é atingido
+def prox_nivel():
     window.blit(imagem_fundo, imagem_fundo_rect)
     window.blit(imagem_fundo, imagem_fundo_rect_2)
     
     # Fonte maior e cor rosa choque brilhante para o título
     title_font = pygame.font.SysFont(None, 72)
-    title = title_font.render("Você perdeu!", True, (255, 20, 147))  # Rosa choque brilhante
+    title = title_font.render("Parabéns", True, (255, 20, 147))  # Rosa choque brilhante
     
     # Fonte menor para a história
     font = pygame.font.SysFont(None, 40)
-    acontecimento = ["Um laser te atingiu."]
+    acontecimento = ["Você  passou para o próximo nível."]
 
     font_inicio = pygame.font.SysFont(None, 30)
     inicio = font_inicio.render("Clique em qualquer botão para reiniciar o jogo.", True, (255, 255, 255))

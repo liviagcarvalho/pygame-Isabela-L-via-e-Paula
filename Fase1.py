@@ -241,9 +241,7 @@ def fase1 ():
         if pygame.sprite.spritecollide(jogador, all_lasers, False):
             import perdeu_laser
             perdeu_laser()
-            
 
-            #em vez de game= False -> mostrar imagem de voce perdeu recomecar clicando 
 
 
     # Verifica se houve colisão entre fadas
