@@ -2,8 +2,8 @@ import pygame
 import random
 from inicio import*
 
+from telafinal import*
 
-K = 0 
 def fase1 (): 
     pygame.init()
 
@@ -67,13 +67,6 @@ def fase1 ():
     LASER_img_verdeagua_small = pygame.transform.scale(LASER_img_verdeagua, (LASER_WIDTH, LASER_HEIGHT))
     LASER_img_amarelo_small = pygame.transform.scale(LASER_img_amarelo, (LASER_WIDTH, LASER_HEIGHT))
 
-
-
-
-
-
-
-
     # ----- CLASSE FADA BEM 
     class FADA_BEM(pygame.sprite.Sprite):
         def __init__(self, img, all_sprites):
@@ -106,7 +99,6 @@ def fase1 ():
             if self.rect.top < 0:
                 self.rect.top = 0
 
-
     # ----- CLASSE LASER 
     class LASER(pygame.sprite.Sprite):
         def __init__(self, img):
@@ -127,16 +119,10 @@ def fase1 ():
                 self.speedx = random.randint(-3, 3)
                 self.speedy = random.randint(2, 9) # velocidade (4,12) - para ultima fase (3,10) segunda fase 
 
-
-
-
     # ----- Definindo outras variáveis do jogo
     game = True 
     clock = pygame.time.Clock()
     FPS = 30
-
-
-
 
     # # ----- Criando um grupo de sprites para os lasers 
     all_sprites = pygame.sprite.Group()
@@ -154,11 +140,6 @@ def fase1 ():
         all_sprites.add(laser)
         all_lasers.add(laser)
 
-
-
-
-
-
     # ----- Criando os lasers e adicionando ao grupo de sprites
     l1 = LASER(LASER_img_roxo_small)
     l2 = LASER(LASER_img_azul_small)
@@ -174,10 +155,6 @@ def fase1 ():
     # for _ in range(num_lasers):
     #     l = LASER(random.choice([LASER_img_roxo_small, LASER_img_azul_small, LASER_img_rosa_small, LASER_img_verde_small, LASER_img_amarelo_small, LASER_img_verdeagua_small]))
     #     all_sprites.add(l)
-
-
-
-
 
     # ===== Loop principal =====
 
@@ -209,10 +186,6 @@ def fase1 ():
                 if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                     jogador.speedy = 0
 
-
-
-
-
         # Atualiza estado do jogo
         all_sprites.update()
 
@@ -231,14 +204,9 @@ def fase1 ():
         imagem_fundo_rect_2.x -= imagem_fundo_rect_2.width
         window.blit (imagem_fundo, imagem_fundo_rect_2)
 
-
-
-
-
-
-
     # Verifica se houve colisão entre laser
         if pygame.sprite.spritecollide(jogador, all_lasers, False):
+<<<<<<< HEAD
             import perdeu_laser
             perdeu_laser()
 
@@ -252,13 +220,18 @@ def fase1 ():
 
 
 
+=======
+            game = False
+
+    # Verifica se houve colisão entre fadas
+        if jogador.rect.colliderect(fada_mal_rect):
+            game = False
+>>>>>>> d9aa3c6 (telafinal)
 
     # Gera saídas
         # window.blit(imagem_fundo, (0, 0))  # Desenha o fundo
         window.blit(imagem_fada_mal, fada_mal_rect)  # Desenha a fada mal
         all_sprites.draw(window)
-
-
 
         pygame.display.update()
 
