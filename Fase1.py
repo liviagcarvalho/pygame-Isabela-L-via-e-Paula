@@ -236,7 +236,7 @@ def fase1():
 
 
         # Verifica se houve colisão entre fadas
-        if jogador.rect.colliderect(fada_mal_rect):
+        elif jogador.rect.colliderect(fada_mal_rect):
             import tela_prox_nivel
             K = 3
             game = False

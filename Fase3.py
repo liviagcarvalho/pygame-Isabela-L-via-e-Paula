@@ -228,7 +228,7 @@ def fase3():
             fase3()
 
         # Verifica se houve colisão entre fadas
-        if jogador.rect.colliderect(fada_mal_rect):
+        elif jogador.rect.colliderect(fada_mal_rect):
             import salvou_reino
             salvou_reino()
 
