@@ -205,28 +205,15 @@ def fase1 ():
         window.blit (imagem_fundo, imagem_fundo_rect_2)
 
     # Verifica se houve colisão entre laser
-        if pygame.sprite.spritecollide(jogador, all_lasers, False):
-<<<<<<< HEAD
-            import perdeu_laser
-            perdeu_laser()
+    if pygame.sprite.spritecollide(jogador, all_lasers, False):
+        game_over_screen(window, WIDTH, HEIGHT)
+        game = False
 
 
-            #em vez de game= False -> mostrar imagem de voce perdeu recomecar clicando 
-
-
-    # Verifica se houve colisão entre fadas
-        if jogador.rect.colliderect(fada_mal_rect):
-            K+= 1 
-
-
-
-=======
-            game = False
-
-    # Verifica se houve colisão entre fadas
-        if jogador.rect.colliderect(fada_mal_rect):
-            game = False
->>>>>>> d9aa3c6 (telafinal)
+# Verifica se houve colisão entre fadas
+    if jogador.rect.colliderect(fada_mal_rect):
+        victory_screen(window, WIDTH, HEIGHT)
+        game = False
 
     # Gera saídas
         # window.blit(imagem_fundo, (0, 0))  # Desenha o fundo

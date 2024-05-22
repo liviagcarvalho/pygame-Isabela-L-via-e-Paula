@@ -4,11 +4,9 @@ import time
 
 from inicio import*
 from Fase1 import* 
-<<<<<<< HEAD
-from Fase2 import* 
-=======
-from telafinal import* 
->>>>>>> d9aa3c6 (telafinal)
+from Fase2 import*
+from telafinal import*
+
 
 # levels = [1,2,3]
 
