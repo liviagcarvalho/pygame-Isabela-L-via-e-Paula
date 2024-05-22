@@ -4,6 +4,9 @@ import time
 from inicio import*
 from Fase1 import* 
 # from Fase2 import*
-# from tela_prox_nivel import*
+from tela_prox_nivel import*
 from Fase3 import*
 
+# fase1()
+# fase2()
+# fase3()
