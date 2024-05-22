@@ -1,6 +1,5 @@
 import pygame
 import random
-from inicio import*
 
 
 K = 0 
