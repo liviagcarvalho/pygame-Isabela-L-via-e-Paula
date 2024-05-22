@@ -233,7 +233,7 @@ def fase1():
         if jogador.rect.colliderect(fada_mal_rect):
             import tela_prox_nivel 
             K = 1
-            break
+            
             # import salvou_reino
             # salvou_reino()
 

@@ -235,7 +235,7 @@ def fase2():
         # Verifica se houve colisão entre fadas
         if jogador.rect.colliderect(fada_mal_rect):
             prox_nivel()
-            K = 1
+            K = 3
 
 
         # Adiciona mais lasers após um intervalo
@@ -252,7 +252,9 @@ def fase2():
         all_sprites.draw(window)
         pygame.display.update()
 
+    pygame.quit()
+    return K
+
+
 fase2()
 
-# Finalização
-pygame.quit()

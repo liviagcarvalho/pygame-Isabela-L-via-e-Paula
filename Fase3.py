@@ -238,4 +238,6 @@ def fase3():
 
     pygame.quit()
 
+    
+
 fase3()
