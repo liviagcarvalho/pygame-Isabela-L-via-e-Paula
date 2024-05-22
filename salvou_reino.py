@@ -3,7 +3,7 @@ import random
 import sys
 pygame.init()
 
-def victory_screen(window, WIDTH, HEIGHT):
+def victory_screen():
     font = pygame.font.Font(None, 50)
     subfont = pygame.font.Font(None, 36)  # Fonte menor para a submensagem
     text1 = font.render('Parabéns, você derrotou a fada má', True, (0, 0, 0))
