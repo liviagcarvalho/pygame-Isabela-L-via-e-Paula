@@ -1,7 +1,7 @@
 import pygame
 import random
 import sys
-
+pygame.init()
 def game_over_screen(window, WIDTH, HEIGHT):
     font = pygame.font.Font(None, 50)
     subfont = pygame.font.Font(None, 36)  # Fonte menor para a submensagem
@@ -50,13 +50,13 @@ def victory_screen(window, WIDTH, HEIGHT):
         window.blit(imagem_fada_mal, fada_mal_rect) 
         pygame.display.flip()
 
-# Verifica se houve colisão entre laser
-    if pygame.sprite.spritecollide(jogador, all_lasers, False):
-        game_over_screen(window, WIDTH, HEIGHT)
-        game = False
+# # Verifica se houve colisão entre laser
+#     if pygame.sprite.spritecollide(jogador, all_lasers, False):
+#         game_over_screen(window, WIDTH, HEIGHT)
+#         game = False
 
 
-# Verifica se houve colisão entre fadas
-    if jogador.rect.colliderect(fada_mal_rect):
-        victory_screen(window, WIDTH, HEIGHT)
-        game = False
+# # Verifica se houve colisão entre fadas
+#     if jogador.rect.colliderect(fada_mal_rect):
+#         victory_screen(window, WIDTH, HEIGHT)
+#         game = False

@@ -1,7 +1,6 @@
 import pygame
 import random
 from inicio import*
-
 from telafinal import*
 
 def fase1 (): 
@@ -12,8 +11,6 @@ def fase1 ():
     HEIGHT = 600
     window = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption('🧚🏼🧚🏼‍♀️Fairy Game🧚🏼‍♀️🧚🏼')
-
-
 
     # ----- Carrega imagens
 
@@ -40,14 +37,8 @@ def fase1 ():
     imagem_fada_bem = pygame.transform.scale(imagem_fada_bem, (fada_bem_width, fada_bem_height))
     ### dentro do classe 
 
-
-
-
-
     # #tiro brilho 
     # imagem_tiro = pygame.image.load('assets/img/Raio_fada_bem.png').convert_alpha()
-
-
 
     # Carregando imagens dos lasers
     LASER_img_roxo = pygame.image.load('assets/img/Laser_roxo.png').convert_alpha()
@@ -157,8 +148,6 @@ def fase1 ():
     #     all_sprites.add(l)
 
     # ===== Loop principal =====
-
-
     while game:
         clock.tick(FPS)
 
@@ -209,7 +198,6 @@ def fase1 ():
         game_over_screen(window, WIDTH, HEIGHT)
         game = False
 
-
 # Verifica se houve colisão entre fadas
     if jogador.rect.colliderect(fada_mal_rect):
         victory_screen(window, WIDTH, HEIGHT)
@@ -221,8 +209,8 @@ def fase1 ():
         all_sprites.draw(window)
 
         pygame.display.update()
-
 fase1 ()
+
 # Finalização
 pygame.quit()
 
