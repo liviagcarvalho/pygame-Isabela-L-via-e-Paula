@@ -4,7 +4,7 @@ import random
 from inicio import*
 
 
-
+K=0
 def fase1():
     pygame.init()
 
@@ -233,7 +233,7 @@ def fase1():
         if jogador.rect.colliderect(fada_mal_rect):
             import tela_prox_nivel 
             K = 1
-
+            break
             # import salvou_reino
             # salvou_reino()
 
@@ -243,5 +243,6 @@ def fase1():
         pygame.display.update()
 
     pygame.quit()
+    return K
 
 fase1()
