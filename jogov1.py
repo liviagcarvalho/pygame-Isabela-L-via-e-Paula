@@ -73,7 +73,7 @@ l3 = LASER(LASER_img_rosa_small)
 l4 = LASER(LASER_img_verde_small)
 l5 = LASER(LASER_img_verdeagua_small)
 l6 = LASER(LASER_img_amarelo_small)
-all_sprites.add(l1, l2, l3, l4, l5, l6)
+all_sprites.add(l1, l2, l3, l4, l5, l6) 
 
 # ===== Loop principal =====
 while game:

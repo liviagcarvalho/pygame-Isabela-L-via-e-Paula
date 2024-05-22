@@ -232,20 +232,20 @@ def fase1():
             fase1()
 
             
-        # Verifica se houve colisão entre fadas
-        if jogador.rect.colliderect(fada_mal_rect):
-            game = False
-            import tela_prox_nivel 
-            K = 1
-            game = False
-            # import salvou_reino
-            # salvou_reino()
+        # # Verifica se houve colisão entre fadas
+        # if jogador.rect.colliderect(fada_mal_rect):
+        #     game = False
+        #     import tela_prox_nivel 
+        #     K = 1
+        #     game = False
+        #     # import salvou_reino
+        #     # salvou_reino()
             
         if jogador.rect.colliderect(fada_mal_rect):
-            game = False
-            import tela_prox_nivel
-            K += 1  
-
+            show_start_screen()  
+            fase2()  # Start the second level
+            K+=1
+            return 
         window.blit(imagem_fada_mal, fada_mal_rect)  # Desenha a fada má
         all_sprites.draw(window)
 
