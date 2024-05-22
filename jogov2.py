@@ -177,81 +177,84 @@ all_sprites.add(l1, l2, l3, l4, l5, l6)
 
 # ===== Loop principal =====
 
-while game:
-    clock.tick(FPS)
+K = 0 
+def fase1 (): 
+    while game:
+        clock.tick(FPS)
 
-    # ----- Trata eventos
-    for event in pygame.event.get():
-        # ----- Verifica consequências
-        if event.type == pygame.QUIT:
+        # ----- Trata eventos
+        for event in pygame.event.get():
+            # ----- Verifica consequências
+            if event.type == pygame.QUIT:
+                game = False
+            # Verifica se apertou alguma tecla.
+            if event.type == pygame.KEYDOWN:
+                # Dependendo da tecla, altera a velocidade.
+                if event.key == pygame.K_LEFT:
+                    jogador.speedx -= 4 #8
+                if event.key == pygame.K_RIGHT:
+                    jogador.speedx += 4 #8
+                if event.key == pygame.K_UP:
+                    jogador.speedy = -5
+                if event.key == pygame.K_DOWN:
+                    jogador.speedy = 5
+
+            # Verifica se soltou alguma tecla.
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                    jogador.speedx = 0
+                if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                    jogador.speedy = 0
+
+
+
+
+
+        # Atualiza estado do jogo
+        all_sprites.update()
+
+        window.fill ((0,0,0))
+        # Atualiza a posição da imagem de fundo.
+        imagem_fundo_rect.x += speed_fundo
+        # Se o fundo saiu da janela, faz ele voltar para dentro.
+        if imagem_fundo_rect.left > WIDTH:
+            imagem_fundo_rect.x -= imagem_fundo_rect.width
+        # Desenha o fundo e uma cópia para a direita.
+        # Assumimos que a imagem selecionada ocupa pelo menos o tamanho da janela.
+        # Além disso, ela deve ser cíclica, ou seja, o lado esquerdo deve ser continuação do direito.
+        window.blit (imagem_fundo, imagem_fundo_rect)
+        # Desenhamos a imagem novamente, mas deslocada da largura da imagem em x.
+        imagem_fundo_rect_2 = imagem_fundo_rect.copy()
+        imagem_fundo_rect_2.x -= imagem_fundo_rect_2.width
+        window.blit (imagem_fundo, imagem_fundo_rect_2)
+
+
+
+
+
+
+
+    # Verifica se houve colisão entre laser
+        if pygame.sprite.spritecollide(jogador, all_lasers, False):
             game = False
-        # Verifica se apertou alguma tecla.
-        if event.type == pygame.KEYDOWN:
-            # Dependendo da tecla, altera a velocidade.
-            if event.key == pygame.K_LEFT:
-                jogador.speedx -= 4 #8
-            if event.key == pygame.K_RIGHT:
-                jogador.speedx += 4 #8
-            if event.key == pygame.K_UP:
-                jogador.speedy = -5
-            if event.key == pygame.K_DOWN:
-                jogador.speedy = 5
+            #em vez de game= False -> mostrar imagem de voce perdeu recomecar clicando 
 
-        # Verifica se soltou alguma tecla.
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                jogador.speedx = 0
-            if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
-                jogador.speedy = 0
+
+    # Verifica se houve colisão entre fadas
+        if jogador.rect.colliderect(fada_mal_rect):
+            K+= 1 
+        
 
 
 
-
-
-    # Atualiza estado do jogo
-    all_sprites.update()
-
-    window.fill ((0,0,0))
-    # Atualiza a posição da imagem de fundo.
-    imagem_fundo_rect.x += speed_fundo
-    # Se o fundo saiu da janela, faz ele voltar para dentro.
-    if imagem_fundo_rect.left > WIDTH:
-        imagem_fundo_rect.x -= imagem_fundo_rect.width
-    # Desenha o fundo e uma cópia para a direita.
-    # Assumimos que a imagem selecionada ocupa pelo menos o tamanho da janela.
-    # Além disso, ela deve ser cíclica, ou seja, o lado esquerdo deve ser continuação do direito.
-    window.blit (imagem_fundo, imagem_fundo_rect)
-    # Desenhamos a imagem novamente, mas deslocada da largura da imagem em x.
-    imagem_fundo_rect_2 = imagem_fundo_rect.copy()
-    imagem_fundo_rect_2.x -= imagem_fundo_rect_2.width
-    window.blit (imagem_fundo, imagem_fundo_rect_2)
+    # Gera saídas
+        # window.blit(imagem_fundo, (0, 0))  # Desenha o fundo
+        window.blit(imagem_fada_mal, fada_mal_rect)  # Desenha a fada mal
+        all_sprites.draw(window)
 
 
 
-
-
-
-
-# Verifica se houve colisão entre laser
-    if pygame.sprite.spritecollide(jogador, all_lasers, False):
-        game = False
-
-
-# Verifica se houve colisão entre fadas
-    if jogador.rect.colliderect(fada_mal_rect):
-        game = False
-    
-
-
-
- # Gera saídas
-    # window.blit(imagem_fundo, (0, 0))  # Desenha o fundo
-    window.blit(imagem_fada_mal, fada_mal_rect)  # Desenha a fada mal
-    all_sprites.draw(window)
-
-
-
-    pygame.display.update()
+        pygame.display.update()
 
 
 # Finalização
