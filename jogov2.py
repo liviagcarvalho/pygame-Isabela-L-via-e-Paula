@@ -1,6 +1,6 @@
 import pygame
 import random
-
+from inicio import*
 pygame.init()
 
 # ----- Gera tela principal
