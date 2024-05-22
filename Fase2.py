@@ -236,6 +236,7 @@ def fase2():
         if jogador.rect.colliderect(fada_mal_rect):
             prox_nivel()
             K = 3
+            game = False
 
 
         # Adiciona mais lasers após um intervalo
@@ -246,6 +247,7 @@ def fase2():
                 laser = LASER(random.choice(list(laser_images.values())))
                 all_sprites.add(laser)
                 all_lasers.add(laser)
+            
 
         # Gera saídas
         window.blit(imagem_fada_mal, fada_mal_rect)  # Desenha a fada mal
