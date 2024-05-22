@@ -93,7 +93,7 @@ def fase3():
                 self.rect.x = random.randint(0, WIDTH - LASER_WIDTH)
                 self.rect.y = random.randint(-100, -LASER_HEIGHT)
                 self.speedx = random.randint(-3, 3)
-                self.speedy = random.randint(2, 9)
+                self.speedy = random.randint(2, 9) #(3, 10) # velocidade (4,12) - para ultima fase (3,10) segunda fase 
 
     # ----- Definindo outras variáveis do jogo
     game = True
@@ -109,7 +109,7 @@ def fase3():
     all_sprites.add(jogador)
 
     # Criando múltiplos lasers e adicionando ao grupo de sprites
-    num_lasers_per_color = 1 # Número de lasers por cor
+    num_lasers_per_color = 3# 2 para fase 2 #1 pra fase 1 # Número de lasers por cor
     for color, img in laser_imgs.items():
         for _ in range(num_lasers_per_color):
             laser = LASER(img)
@@ -126,13 +126,13 @@ def fase3():
                 game = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    jogador.speedx -= 4
+                    jogador.speedx -= 8
                 if event.key == pygame.K_RIGHT:
-                    jogador.speedx += 4
+                    jogador.speedx += 8
                 if event.key == pygame.K_UP:
-                    jogador.speedy = -5
+                    jogador.speedy = -10
                 if event.key == pygame.K_DOWN:
-                    jogador.speedy = 5
+                    jogador.speedy = 10
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
